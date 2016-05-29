@@ -1,0 +1,1578 @@
+$ packer build centos.json
+virtualbox-iso output will be in this color.
+
+==> virtualbox-iso: Downloading or copying Guest additions
+    virtualbox-iso: Downloading or copying: file:///Applications/VirtualBox.app/Contents/MacOS/VBoxGuestAdditions.iso
+==> virtualbox-iso: Downloading or copying ISO
+    virtualbox-iso: Downloading or copying: file:///Users/user/packer-centos-7.2.1511/CentOS-7-x86_64-Minimal-1511.iso
+==> virtualbox-iso: Starting HTTP server on port 8928
+==> virtualbox-iso: Creating virtual machine...
+==> virtualbox-iso: Creating hard drive...
+==> virtualbox-iso: Creating forwarded port mapping for communicator (SSH, WinRM, etc) (host port 2555)
+==> virtualbox-iso: Executing custom VBoxManage commands...
+    virtualbox-iso: Executing: modifyvm centos-7.2-x86_64 --memory 2048
+    virtualbox-iso: Executing: modifyvm centos-7.2-x86_64 --cpus 2
+==> virtualbox-iso: Starting the virtual machine...
+    virtualbox-iso: The VM will be run headless, without a GUI. If you want to
+    virtualbox-iso: view the screen of the VM, connect via VRDP without a password to
+    virtualbox-iso: 127.0.0.1:5976
+==> virtualbox-iso: Waiting 10s for boot...
+==> virtualbox-iso: Typing the boot command...
+==> virtualbox-iso: Waiting for SSH to become available...
+==> virtualbox-iso: Connected to SSH!
+==> virtualbox-iso: Uploading VirtualBox version info (5.0.20)
+==> virtualbox-iso: Uploading VirtualBox guest additions ISO...
+==> virtualbox-iso: Uploading repo => /tmp
+==> virtualbox-iso: Provisioning with shell script: scripts/sshd.sh
+    virtualbox-iso: + SSHD_CONFIG=/etc/ssh/sshd_config
+    virtualbox-iso: + sed -i -e '$a\' /etc/ssh/sshd_config
+    virtualbox-iso: + USEDNS='UseDNS no'
+    virtualbox-iso: + grep -q -E '^[[:space:]]*UseDNS' /etc/ssh/sshd_config
+    virtualbox-iso: + echo 'UseDNS no'
+    virtualbox-iso: + GSSAPI='GSSAPIAuthentication no'
+    virtualbox-iso: + grep -q -E '^[[:space:]]*GSSAPIAuthentication' /etc/ssh/sshd_config
+    virtualbox-iso: + sed -i 's/^\s*GSSAPIAuthentication.*/GSSAPIAuthentication no/' /etc/ssh/sshd_config
+==> virtualbox-iso: Provisioning with shell script: scripts/networking.sh
+    virtualbox-iso: ++ sed 's/^.\+ release \([.0-9]\+\).*/\1/' /etc/redhat-release
+    virtualbox-iso: ++ awk -F. '{print $1}'
+    virtualbox-iso: + major_version=7
+    virtualbox-iso: + '[' 7 -ge 6 ']'
+    virtualbox-iso: + echo 'RES_OPTIONS="single-request-reopen"'
+    virtualbox-iso: + service network restart
+    virtualbox-iso: + echo 'Slow DNS fix applied (single-request-reopen)'
+    virtualbox-iso: Restarting network (via systemctl):  [  OK  ]
+    virtualbox-iso: Slow DNS fix applied (single-request-reopen)
+==> virtualbox-iso: Provisioning with shell script: scripts/vagrant.sh
+    virtualbox-iso: + HOME_DIR=/home/vagrant
+    virtualbox-iso: + mkdir -p /home/vagrant/.ssh
+    virtualbox-iso: + AUTH_KEYS=/home/vagrant/.ssh/authorized_keys
+    virtualbox-iso: + echo -n 'ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEA6NF8iallvQVp'
+    virtualbox-iso: + echo -n 22WDkTkyrtvp9eWW6A8YVr+kz4TjGYe7gHzIw+niNltGEFHz
+    virtualbox-iso: + echo -n D8+v1I2YJ6oXevct1YeS0o9HZyN1Q9qgCgzUFtdOKLv6Iedp
+    virtualbox-iso: + echo -n lqoPkcmF0aYet2PkEDo3MlTBckFXPITAMzF8dJSIFo9D8Hfd
+    virtualbox-iso: + echo -n OV0IAdx4O7PtixWKn5y2hMNG0zQPyUecp4pzC6kivAIhyfHi
+    virtualbox-iso: + echo -n lFR61RGL+GPXQ2MWZWFYbAGjyiYJnAmCP3NOTd0jMZEnDkbU
+    virtualbox-iso: + echo -n vxhMmBYSdETk1rRgm+R4LOzFUGaHqHDLKLX+FIPKcF96hruc
+    virtualbox-iso: + echo -n 'XzcWyLbIbEgE98OHlnVYCzRdK8jlqm8tehUc9c9WhQ== vag'
+    virtualbox-iso: + echo -n 'rant insecure public key'
+    virtualbox-iso: + echo
+    virtualbox-iso: + chown -R vagrant /home/vagrant/.ssh
+    virtualbox-iso: + chmod -R go-rwsx /home/vagrant/.ssh
+==> virtualbox-iso: Provisioning with shell script: scripts/repository.sh
+    virtualbox-iso: + mv /tmp/repo /opt
+    virtualbox-iso: + cp /etc/yum.repos.d/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo.bak
+    virtualbox-iso: + cp /opt/repo/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo
+    virtualbox-iso: + RC_LOCAL=/etc/rc.d/rc.local
+    virtualbox-iso: + REPO_RUN='python /opt/repo/reposerver.py &> /tmp/yum.repo.server.log &'
+    virtualbox-iso: + echo 'python /opt/repo/reposerver.py &> /tmp/yum.repo.server.log &'
+    virtualbox-iso: + chmod +x /etc/rc.d/rc.local
+    virtualbox-iso: + reboot
+==> virtualbox-iso: Provisioning with shell script: scripts/package.sh
+    virtualbox-iso: + yum -y groups install 'Development Tools'
+    virtualbox-iso: Loaded plugins: fastestmirror
+    virtualbox-iso: There is no installed groups file.
+    virtualbox-iso: Maybe run: yum groups mark convert (see man yum)
+    virtualbox-iso: Determining fastest mirrors
+    virtualbox-iso: Resolving Dependencies
+    virtualbox-iso: --> Running transaction check
+    virtualbox-iso: ---> Package autoconf.noarch 0:2.69-11.el7 will be installed
+    virtualbox-iso: --> Processing Dependency: perl >= 5.006 for package: autoconf-2.69-11.el7.noarch
+    virtualbox-iso: --> Processing Dependency: m4 >= 1.4.14 for package: autoconf-2.69-11.el7.noarch
+    virtualbox-iso: --> Processing Dependency: perl(warnings) for package: autoconf-2.69-11.el7.noarch
+    virtualbox-iso: --> Processing Dependency: perl(vars) for package: autoconf-2.69-11.el7.noarch
+    virtualbox-iso: --> Processing Dependency: perl(strict) for package: autoconf-2.69-11.el7.noarch
+    virtualbox-iso: --> Processing Dependency: perl(constant) for package: autoconf-2.69-11.el7.noarch
+    virtualbox-iso: --> Processing Dependency: perl(Text::ParseWords) for package: autoconf-2.69-11.el7.noarch
+    virtualbox-iso: --> Processing Dependency: perl(POSIX) for package: autoconf-2.69-11.el7.noarch
+    virtualbox-iso: --> Processing Dependency: perl(IO::File) for package: autoconf-2.69-11.el7.noarch
+    virtualbox-iso: --> Processing Dependency: perl(Getopt::Long) for package: autoconf-2.69-11.el7.noarch
+    virtualbox-iso: --> Processing Dependency: perl(File::stat) for package: autoconf-2.69-11.el7.noarch
+    virtualbox-iso: --> Processing Dependency: perl(File::Spec) for package: autoconf-2.69-11.el7.noarch
+    virtualbox-iso: --> Processing Dependency: perl(File::Path) for package: autoconf-2.69-11.el7.noarch
+    virtualbox-iso: --> Processing Dependency: perl(File::Find) for package: autoconf-2.69-11.el7.noarch
+    virtualbox-iso: --> Processing Dependency: perl(File::Copy) for package: autoconf-2.69-11.el7.noarch
+    virtualbox-iso: --> Processing Dependency: perl(File::Compare) for package: autoconf-2.69-11.el7.noarch
+    virtualbox-iso: --> Processing Dependency: perl(File::Basename) for package: autoconf-2.69-11.el7.noarch
+    virtualbox-iso: --> Processing Dependency: perl(Exporter) for package: autoconf-2.69-11.el7.noarch
+    virtualbox-iso: --> Processing Dependency: perl(Errno) for package: autoconf-2.69-11.el7.noarch
+    virtualbox-iso: --> Processing Dependency: perl(DynaLoader) for package: autoconf-2.69-11.el7.noarch
+    virtualbox-iso: --> Processing Dependency: perl(Data::Dumper) for package: autoconf-2.69-11.el7.noarch
+    virtualbox-iso: --> Processing Dependency: perl(Cwd) for package: autoconf-2.69-11.el7.noarch
+    virtualbox-iso: --> Processing Dependency: perl(Class::Struct) for package: autoconf-2.69-11.el7.noarch
+    virtualbox-iso: --> Processing Dependency: perl(Carp) for package: autoconf-2.69-11.el7.noarch
+    virtualbox-iso: --> Processing Dependency: /usr/bin/perl for package: autoconf-2.69-11.el7.noarch
+    virtualbox-iso: ---> Package automake.noarch 0:1.13.4-3.el7 will be installed
+    virtualbox-iso: --> Processing Dependency: perl(threads) for package: automake-1.13.4-3.el7.noarch
+    virtualbox-iso: --> Processing Dependency: perl(Thread::Queue) for package: automake-1.13.4-3.el7.noarch
+    virtualbox-iso: --> Processing Dependency: perl(TAP::Parser) for package: automake-1.13.4-3.el7.noarch
+    virtualbox-iso: ---> Package bison.x86_64 0:2.7-4.el7 will be installed
+    virtualbox-iso: ---> Package byacc.x86_64 0:1.9.20130304-3.el7 will be installed
+    virtualbox-iso: ---> Package cscope.x86_64 0:15.8-7.el7 will be installed
+    virtualbox-iso: --> Processing Dependency: emacs-filesystem for package: cscope-15.8-7.el7.x86_64
+    virtualbox-iso: ---> Package ctags.x86_64 0:5.8-13.el7 will be installed
+    virtualbox-iso: ---> Package diffstat.x86_64 0:1.57-4.el7 will be installed
+    virtualbox-iso: ---> Package doxygen.x86_64 1:1.8.5-3.el7 will be installed
+    virtualbox-iso: ---> Package elfutils.x86_64 0:0.163-3.el7 will be installed
+    virtualbox-iso: ---> Package flex.x86_64 0:2.5.37-3.el7 will be installed
+    virtualbox-iso: ---> Package gcc.x86_64 0:4.8.5-4.el7 will be installed
+    virtualbox-iso: --> Processing Dependency: cpp = 4.8.5-4.el7 for package: gcc-4.8.5-4.el7.x86_64
+    virtualbox-iso: --> Processing Dependency: glibc-devel >= 2.2.90-12 for package: gcc-4.8.5-4.el7.x86_64
+    virtualbox-iso: --> Processing Dependency: libmpfr.so.4()(64bit) for package: gcc-4.8.5-4.el7.x86_64
+    virtualbox-iso: --> Processing Dependency: libmpc.so.3()(64bit) for package: gcc-4.8.5-4.el7.x86_64
+    virtualbox-iso: ---> Package gcc-c++.x86_64 0:4.8.5-4.el7 will be installed
+    virtualbox-iso: --> Processing Dependency: libstdc++-devel = 4.8.5-4.el7 for package: gcc-c++-4.8.5-4.el7.x86_64
+    virtualbox-iso: ---> Package gcc-gfortran.x86_64 0:4.8.5-4.el7 will be installed
+    virtualbox-iso: --> Processing Dependency: libquadmath-devel = 4.8.5-4.el7 for package: gcc-gfortran-4.8.5-4.el7.x86_64
+    virtualbox-iso: --> Processing Dependency: libquadmath = 4.8.5-4.el7 for package: gcc-gfortran-4.8.5-4.el7.x86_64
+    virtualbox-iso: --> Processing Dependency: libgfortran = 4.8.5-4.el7 for package: gcc-gfortran-4.8.5-4.el7.x86_64
+    virtualbox-iso: --> Processing Dependency: libgfortran.so.3()(64bit) for package: gcc-gfortran-4.8.5-4.el7.x86_64
+    virtualbox-iso: ---> Package git.x86_64 0:1.8.3.1-5.el7 will be installed
+    virtualbox-iso: --> Processing Dependency: perl-Git = 1.8.3.1-5.el7 for package: git-1.8.3.1-5.el7.x86_64
+    virtualbox-iso: --> Processing Dependency: rsync for package: git-1.8.3.1-5.el7.x86_64
+    virtualbox-iso: --> Processing Dependency: perl(Term::ReadKey) for package: git-1.8.3.1-5.el7.x86_64
+    virtualbox-iso: --> Processing Dependency: perl(Git) for package: git-1.8.3.1-5.el7.x86_64
+    virtualbox-iso: --> Processing Dependency: perl(File::Temp) for package: git-1.8.3.1-5.el7.x86_64
+    virtualbox-iso: --> Processing Dependency: perl(Error) for package: git-1.8.3.1-5.el7.x86_64
+    virtualbox-iso: --> Processing Dependency: libgnome-keyring.so.0()(64bit) for package: git-1.8.3.1-5.el7.x86_64
+    virtualbox-iso: ---> Package indent.x86_64 0:2.2.11-13.el7 will be installed
+    virtualbox-iso: ---> Package intltool.noarch 0:0.50.2-6.el7 will be installed
+    virtualbox-iso: --> Processing Dependency: perl(XML::Parser) for package: intltool-0.50.2-6.el7.noarch
+    virtualbox-iso: --> Processing Dependency: perl(Encode) for package: intltool-0.50.2-6.el7.noarch
+    virtualbox-iso: --> Processing Dependency: gettext-devel for package: intltool-0.50.2-6.el7.noarch
+    virtualbox-iso: ---> Package libtool.x86_64 0:2.4.2-20.el7 will be installed
+    virtualbox-iso: ---> Package patch.x86_64 0:2.7.1-8.el7 will be installed
+    virtualbox-iso: ---> Package patchutils.x86_64 0:0.3.3-4.el7 will be installed
+    virtualbox-iso: ---> Package rcs.x86_64 0:5.9.0-5.el7 will be installed
+    virtualbox-iso: ---> Package redhat-rpm-config.noarch 0:9.1.0-68.el7.centos will be installed
+    virtualbox-iso: --> Processing Dependency: dwz >= 0.4 for package: redhat-rpm-config-9.1.0-68.el7.centos.noarch
+    virtualbox-iso: --> Processing Dependency: zip for package: redhat-rpm-config-9.1.0-68.el7.centos.noarch
+    virtualbox-iso: --> Processing Dependency: perl-srpm-macros for package: redhat-rpm-config-9.1.0-68.el7.centos.noarch
+    virtualbox-iso: ---> Package rpm-build.x86_64 0:4.11.3-17.el7 will be installed
+    virtualbox-iso: --> Processing Dependency: unzip for package: rpm-build-4.11.3-17.el7.x86_64
+    virtualbox-iso: --> Processing Dependency: bzip2 for package: rpm-build-4.11.3-17.el7.x86_64
+    virtualbox-iso: --> Processing Dependency: /usr/bin/gdb-add-index for package: rpm-build-4.11.3-17.el7.x86_64
+    virtualbox-iso: ---> Package rpm-sign.x86_64 0:4.11.3-17.el7 will be installed
+    virtualbox-iso: ---> Package subversion.x86_64 0:1.7.14-10.el7 will be installed
+    virtualbox-iso: --> Processing Dependency: subversion-libs(x86-64) = 1.7.14-10.el7 for package: subversion-1.7.14-10.el7.x86_64
+    virtualbox-iso: --> Processing Dependency: libsvn_wc-1.so.0()(64bit) for package: subversion-1.7.14-10.el7.x86_64
+    virtualbox-iso: --> Processing Dependency: libsvn_subr-1.so.0()(64bit) for package: subversion-1.7.14-10.el7.x86_64
+    virtualbox-iso: --> Processing Dependency: libsvn_repos-1.so.0()(64bit) for package: subversion-1.7.14-10.el7.x86_64
+    virtualbox-iso: --> Processing Dependency: libsvn_ra_svn-1.so.0()(64bit) for package: subversion-1.7.14-10.el7.x86_64
+    virtualbox-iso: --> Processing Dependency: libsvn_ra_neon-1.so.0()(64bit) for package: subversion-1.7.14-10.el7.x86_64
+    virtualbox-iso: --> Processing Dependency: libsvn_ra_local-1.so.0()(64bit) for package: subversion-1.7.14-10.el7.x86_64
+    virtualbox-iso: --> Processing Dependency: libsvn_ra-1.so.0()(64bit) for package: subversion-1.7.14-10.el7.x86_64
+    virtualbox-iso: --> Processing Dependency: libsvn_fs_util-1.so.0()(64bit) for package: subversion-1.7.14-10.el7.x86_64
+    virtualbox-iso: --> Processing Dependency: libsvn_fs_fs-1.so.0()(64bit) for package: subversion-1.7.14-10.el7.x86_64
+    virtualbox-iso: --> Processing Dependency: libsvn_fs_base-1.so.0()(64bit) for package: subversion-1.7.14-10.el7.x86_64
+    virtualbox-iso: --> Processing Dependency: libsvn_fs-1.so.0()(64bit) for package: subversion-1.7.14-10.el7.x86_64
+    virtualbox-iso: --> Processing Dependency: libsvn_diff-1.so.0()(64bit) for package: subversion-1.7.14-10.el7.x86_64
+    virtualbox-iso: --> Processing Dependency: libsvn_delta-1.so.0()(64bit) for package: subversion-1.7.14-10.el7.x86_64
+    virtualbox-iso: --> Processing Dependency: libsvn_client-1.so.0()(64bit) for package: subversion-1.7.14-10.el7.x86_64
+    virtualbox-iso: --> Processing Dependency: libneon.so.27()(64bit) for package: subversion-1.7.14-10.el7.x86_64
+    virtualbox-iso: --> Processing Dependency: libaprutil-1.so.0()(64bit) for package: subversion-1.7.14-10.el7.x86_64
+    virtualbox-iso: --> Processing Dependency: libapr-1.so.0()(64bit) for package: subversion-1.7.14-10.el7.x86_64
+    virtualbox-iso: ---> Package swig.x86_64 0:2.0.10-4.el7 will be installed
+    virtualbox-iso: ---> Package systemtap.x86_64 0:2.8-10.el7 will be installed
+    virtualbox-iso: --> Processing Dependency: systemtap-devel = 2.8-10.el7 for package: systemtap-2.8-10.el7.x86_64
+    virtualbox-iso: --> Processing Dependency: systemtap-client = 2.8-10.el7 for package: systemtap-2.8-10.el7.x86_64
+    virtualbox-iso: --> Running transaction check
+    virtualbox-iso: ---> Package apr.x86_64 0:1.4.8-3.el7 will be installed
+    virtualbox-iso: ---> Package apr-util.x86_64 0:1.5.2-6.el7 will be installed
+    virtualbox-iso: ---> Package bzip2.x86_64 0:1.0.6-13.el7 will be installed
+    virtualbox-iso: ---> Package cpp.x86_64 0:4.8.5-4.el7 will be installed
+    virtualbox-iso: ---> Package dwz.x86_64 0:0.11-3.el7 will be installed
+    virtualbox-iso: ---> Package emacs-filesystem.noarch 1:24.3-18.el7 will be installed
+    virtualbox-iso: ---> Package gdb.x86_64 0:7.6.1-80.el7 will be installed
+    virtualbox-iso: ---> Package gettext-devel.x86_64 0:0.18.2.1-4.el7 will be installed
+    virtualbox-iso: --> Processing Dependency: gettext-common-devel = 0.18.2.1-4.el7 for package: gettext-devel-0.18.2.1-4.el7.x86_64
+    virtualbox-iso: ---> Package glibc-devel.x86_64 0:2.17-105.el7 will be installed
+    virtualbox-iso: --> Processing Dependency: glibc-headers = 2.17-105.el7 for package: glibc-devel-2.17-105.el7.x86_64
+    virtualbox-iso: --> Processing Dependency: glibc-headers for package: glibc-devel-2.17-105.el7.x86_64
+    virtualbox-iso: ---> Package libgfortran.x86_64 0:4.8.5-4.el7 will be installed
+    virtualbox-iso: ---> Package libgnome-keyring.x86_64 0:3.8.0-3.el7 will be installed
+    virtualbox-iso: ---> Package libmpc.x86_64 0:1.0.1-3.el7 will be installed
+    virtualbox-iso: ---> Package libquadmath.x86_64 0:4.8.5-4.el7 will be installed
+    virtualbox-iso: ---> Package libquadmath-devel.x86_64 0:4.8.5-4.el7 will be installed
+    virtualbox-iso: ---> Package libstdc++-devel.x86_64 0:4.8.5-4.el7 will be installed
+    virtualbox-iso: ---> Package m4.x86_64 0:1.4.16-10.el7 will be installed
+    virtualbox-iso: ---> Package mpfr.x86_64 0:3.1.1-4.el7 will be installed
+    virtualbox-iso: ---> Package neon.x86_64 0:0.30.0-3.el7 will be installed
+    virtualbox-iso: --> Processing Dependency: libpakchois.so.0()(64bit) for package: neon-0.30.0-3.el7.x86_64
+    virtualbox-iso: ---> Package perl.x86_64 4:5.16.3-286.el7 will be installed
+    virtualbox-iso: --> Processing Dependency: perl-libs = 4:5.16.3-286.el7 for package: 4:perl-5.16.3-286.el7.x86_64
+    virtualbox-iso: --> Processing Dependency: perl(Socket) >= 1.3 for package: 4:perl-5.16.3-286.el7.x86_64
+    virtualbox-iso: --> Processing Dependency: perl(Scalar::Util) >= 1.10 for package: 4:perl-5.16.3-286.el7.x86_64
+    virtualbox-iso: --> Processing Dependency: perl-macros for package: 4:perl-5.16.3-286.el7.x86_64
+    virtualbox-iso: --> Processing Dependency: perl-libs for package: 4:perl-5.16.3-286.el7.x86_64
+    virtualbox-iso: --> Processing Dependency: perl(threads::shared) for package: 4:perl-5.16.3-286.el7.x86_64
+    virtualbox-iso: --> Processing Dependency: perl(Time::Local) for package: 4:perl-5.16.3-286.el7.x86_64
+    virtualbox-iso: --> Processing Dependency: perl(Time::HiRes) for package: 4:perl-5.16.3-286.el7.x86_64
+    virtualbox-iso: --> Processing Dependency: perl(Storable) for package: 4:perl-5.16.3-286.el7.x86_64
+    virtualbox-iso: --> Processing Dependency: perl(Socket) for package: 4:perl-5.16.3-286.el7.x86_64
+    virtualbox-iso: --> Processing Dependency: perl(Scalar::Util) for package: 4:perl-5.16.3-286.el7.x86_64
+    virtualbox-iso: --> Processing Dependency: perl(Pod::Simple::XHTML) for package: 4:perl-5.16.3-286.el7.x86_64
+    virtualbox-iso: --> Processing Dependency: perl(Pod::Simple::Search) for package: 4:perl-5.16.3-286.el7.x86_64
+    virtualbox-iso: --> Processing Dependency: perl(Filter::Util::Call) for package: 4:perl-5.16.3-286.el7.x86_64
+    virtualbox-iso: --> Processing Dependency: libperl.so()(64bit) for package: 4:perl-5.16.3-286.el7.x86_64
+    virtualbox-iso: ---> Package perl-Carp.noarch 0:1.26-244.el7 will be installed
+    virtualbox-iso: ---> Package perl-Data-Dumper.x86_64 0:2.145-3.el7 will be installed
+    virtualbox-iso: ---> Package perl-Encode.x86_64 0:2.51-7.el7 will be installed
+    virtualbox-iso: ---> Package perl-Error.noarch 1:0.17020-2.el7 will be installed
+    virtualbox-iso: ---> Package perl-Exporter.noarch 0:5.68-3.el7 will be installed
+    virtualbox-iso: ---> Package perl-File-Path.noarch 0:2.09-2.el7 will be installed
+    virtualbox-iso: ---> Package perl-File-Temp.noarch 0:0.23.01-3.el7 will be installed
+    virtualbox-iso: ---> Package perl-Getopt-Long.noarch 0:2.40-2.el7 will be installed
+    virtualbox-iso: --> Processing Dependency: perl(Pod::Usage) >= 1.14 for package: perl-Getopt-Long-2.40-2.el7.noarch
+    virtualbox-iso: ---> Package perl-Git.noarch 0:1.8.3.1-5.el7 will be installed
+    virtualbox-iso: ---> Package perl-PathTools.x86_64 0:3.40-5.el7 will be installed
+    virtualbox-iso: ---> Package perl-TermReadKey.x86_64 0:2.30-20.el7 will be installed
+    virtualbox-iso: ---> Package perl-Test-Harness.noarch 0:3.28-3.el7 will be installed
+    virtualbox-iso: ---> Package perl-Text-ParseWords.noarch 0:3.29-4.el7 will be installed
+    virtualbox-iso: ---> Package perl-Thread-Queue.noarch 0:3.02-2.el7 will be installed
+    virtualbox-iso: ---> Package perl-XML-Parser.x86_64 0:2.41-10.el7 will be installed
+    virtualbox-iso: ---> Package perl-constant.noarch 0:1.27-2.el7 will be installed
+    virtualbox-iso: ---> Package perl-srpm-macros.noarch 0:1-8.el7 will be installed
+    virtualbox-iso: ---> Package perl-threads.x86_64 0:1.87-4.el7 will be installed
+    virtualbox-iso: ---> Package rsync.x86_64 0:3.0.9-17.el7 will be installed
+    virtualbox-iso: ---> Package subversion-libs.x86_64 0:1.7.14-10.el7 will be installed
+    virtualbox-iso: ---> Package systemtap-client.x86_64 0:2.8-10.el7 will be installed
+    virtualbox-iso: --> Processing Dependency: systemtap-runtime = 2.8-10.el7 for package: systemtap-client-2.8-10.el7.x86_64
+    virtualbox-iso: --> Processing Dependency: mokutil for package: systemtap-client-2.8-10.el7.x86_64
+    virtualbox-iso: ---> Package systemtap-devel.x86_64 0:2.8-10.el7 will be installed
+    virtualbox-iso: --> Processing Dependency: kernel-devel for package: systemtap-devel-2.8-10.el7.x86_64
+    virtualbox-iso: ---> Package unzip.x86_64 0:6.0-15.el7 will be installed
+    virtualbox-iso: ---> Package zip.x86_64 0:3.0-10.el7 will be installed
+    virtualbox-iso: --> Running transaction check
+    virtualbox-iso: ---> Package gettext-common-devel.noarch 0:0.18.2.1-4.el7 will be installed
+    virtualbox-iso: ---> Package glibc-headers.x86_64 0:2.17-105.el7 will be installed
+    virtualbox-iso: --> Processing Dependency: kernel-headers >= 2.2.1 for package: glibc-headers-2.17-105.el7.x86_64
+    virtualbox-iso: --> Processing Dependency: kernel-headers for package: glibc-headers-2.17-105.el7.x86_64
+    virtualbox-iso: ---> Package kernel-devel.x86_64 0:3.10.0-327.el7 will be installed
+    virtualbox-iso: ---> Package mokutil.x86_64 0:0.9-2.el7 will be installed
+    virtualbox-iso: ---> Package pakchois.x86_64 0:0.4-10.el7 will be installed
+    virtualbox-iso: ---> Package perl-Filter.x86_64 0:1.49-3.el7 will be installed
+    virtualbox-iso: ---> Package perl-Pod-Simple.noarch 1:3.28-4.el7 will be installed
+    virtualbox-iso: --> Processing Dependency: perl(Pod::Escapes) >= 1.04 for package: 1:perl-Pod-Simple-3.28-4.el7.noarch
+    virtualbox-iso: ---> Package perl-Pod-Usage.noarch 0:1.63-3.el7 will be installed
+    virtualbox-iso: --> Processing Dependency: perl(Pod::Text) >= 3.15 for package: perl-Pod-Usage-1.63-3.el7.noarch
+    virtualbox-iso: --> Processing Dependency: perl-Pod-Perldoc for package: perl-Pod-Usage-1.63-3.el7.noarch
+    virtualbox-iso: ---> Package perl-Scalar-List-Utils.x86_64 0:1.27-248.el7 will be installed
+    virtualbox-iso: ---> Package perl-Socket.x86_64 0:2.010-3.el7 will be installed
+    virtualbox-iso: ---> Package perl-Storable.x86_64 0:2.45-3.el7 will be installed
+    virtualbox-iso: ---> Package perl-Time-HiRes.x86_64 4:1.9725-3.el7 will be installed
+    virtualbox-iso: ---> Package perl-Time-Local.noarch 0:1.2300-2.el7 will be installed
+    virtualbox-iso: ---> Package perl-libs.x86_64 4:5.16.3-286.el7 will be installed
+    virtualbox-iso: ---> Package perl-macros.x86_64 4:5.16.3-286.el7 will be installed
+    virtualbox-iso: ---> Package perl-threads-shared.x86_64 0:1.43-6.el7 will be installed
+    virtualbox-iso: ---> Package systemtap-runtime.x86_64 0:2.8-10.el7 will be installed
+    virtualbox-iso: --> Processing Dependency: libsymtabAPI.so.8.2()(64bit) for package: systemtap-runtime-2.8-10.el7.x86_64
+    virtualbox-iso: --> Processing Dependency: libdyninstAPI.so.8.2()(64bit) for package: systemtap-runtime-2.8-10.el7.x86_64
+    virtualbox-iso: --> Running transaction check
+    virtualbox-iso: ---> Package dyninst.x86_64 0:8.2.0-2.el7 will be installed
+    virtualbox-iso: --> Processing Dependency: libdwarf.so.0()(64bit) for package: dyninst-8.2.0-2.el7.x86_64
+    virtualbox-iso: --> Processing Dependency: libboost_thread-mt.so.1.53.0()(64bit) for package: dyninst-8.2.0-2.el7.x86_64
+    virtualbox-iso: --> Processing Dependency: libboost_system-mt.so.1.53.0()(64bit) for package: dyninst-8.2.0-2.el7.x86_64
+    virtualbox-iso: ---> Package kernel-headers.x86_64 0:3.10.0-327.el7 will be installed
+    virtualbox-iso: ---> Package perl-Pod-Escapes.noarch 1:1.04-286.el7 will be installed
+    virtualbox-iso: ---> Package perl-Pod-Perldoc.noarch 0:3.20-4.el7 will be installed
+    virtualbox-iso: --> Processing Dependency: perl(parent) for package: perl-Pod-Perldoc-3.20-4.el7.noarch
+    virtualbox-iso: --> Processing Dependency: perl(HTTP::Tiny) for package: perl-Pod-Perldoc-3.20-4.el7.noarch
+    virtualbox-iso: ---> Package perl-podlators.noarch 0:2.5.1-3.el7 will be installed
+    virtualbox-iso: --> Running transaction check
+    virtualbox-iso: ---> Package boost-system.x86_64 0:1.53.0-25.el7 will be installed
+    virtualbox-iso: ---> Package boost-thread.x86_64 0:1.53.0-25.el7 will be installed
+    virtualbox-iso: ---> Package libdwarf.x86_64 0:20130207-4.el7 will be installed
+    virtualbox-iso: ---> Package perl-HTTP-Tiny.noarch 0:0.033-3.el7 will be installed
+    virtualbox-iso: ---> Package perl-parent.noarch 1:0.225-244.el7 will be installed
+    virtualbox-iso: --> Finished Dependency Resolution
+    virtualbox-iso:
+    virtualbox-iso: Dependencies Resolved
+    virtualbox-iso:
+    virtualbox-iso: ================================================================================
+    virtualbox-iso: Package                    Arch       Version                   Repository
+    virtualbox-iso: Size
+    virtualbox-iso: ================================================================================
+    virtualbox-iso: Installing for group install "Development Tools":
+    virtualbox-iso: autoconf                   noarch     2.69-11.el7               base     701 k
+    virtualbox-iso: automake                   noarch     1.13.4-3.el7              base     679 k
+    virtualbox-iso: bison                      x86_64     2.7-4.el7                 base     578 k
+    virtualbox-iso: byacc                      x86_64     1.9.20130304-3.el7        base      65 k
+    virtualbox-iso: cscope                     x86_64     15.8-7.el7                base     203 k
+    virtualbox-iso: ctags                      x86_64     5.8-13.el7                base     155 k
+    virtualbox-iso: diffstat                   x86_64     1.57-4.el7                base      35 k
+    virtualbox-iso: doxygen                    x86_64     1:1.8.5-3.el7             base     3.6 M
+    virtualbox-iso: elfutils                   x86_64     0.163-3.el7               base     268 k
+    virtualbox-iso: flex                       x86_64     2.5.37-3.el7              base     292 k
+    virtualbox-iso: gcc                        x86_64     4.8.5-4.el7               base      16 M
+    virtualbox-iso: gcc-c++                    x86_64     4.8.5-4.el7               base     7.2 M
+    virtualbox-iso: gcc-gfortran               x86_64     4.8.5-4.el7               base     6.6 M
+    virtualbox-iso: git                        x86_64     1.8.3.1-5.el7             base     4.3 M
+    virtualbox-iso: indent                     x86_64     2.2.11-13.el7             base     150 k
+    virtualbox-iso: intltool                   noarch     0.50.2-6.el7              base      59 k
+    virtualbox-iso: libtool                    x86_64     2.4.2-20.el7              base     588 k
+    virtualbox-iso: patch                      x86_64     2.7.1-8.el7               base     110 k
+    virtualbox-iso: patchutils                 x86_64     0.3.3-4.el7               base     104 k
+    virtualbox-iso: rcs                        x86_64     5.9.0-5.el7               base     230 k
+    virtualbox-iso: redhat-rpm-config          noarch     9.1.0-68.el7.centos       base      77 k
+    virtualbox-iso: rpm-build                  x86_64     4.11.3-17.el7             base     143 k
+    virtualbox-iso: rpm-sign                   x86_64     4.11.3-17.el7             base      44 k
+    virtualbox-iso: subversion                 x86_64     1.7.14-10.el7             base     1.0 M
+    virtualbox-iso: swig                       x86_64     2.0.10-4.el7              base     1.3 M
+    virtualbox-iso: systemtap                  x86_64     2.8-10.el7                base      25 k
+    virtualbox-iso: Installing for dependencies:
+    virtualbox-iso: apr                        x86_64     1.4.8-3.el7               base     103 k
+    virtualbox-iso: apr-util                   x86_64     1.5.2-6.el7               base      92 k
+    virtualbox-iso: boost-system               x86_64     1.53.0-25.el7             base      39 k
+    virtualbox-iso: boost-thread               x86_64     1.53.0-25.el7             base      57 k
+    virtualbox-iso: bzip2                      x86_64     1.0.6-13.el7              base      52 k
+    virtualbox-iso: cpp                        x86_64     4.8.5-4.el7               base     5.9 M
+    virtualbox-iso: dwz                        x86_64     0.11-3.el7                base      99 k
+    virtualbox-iso: dyninst                    x86_64     8.2.0-2.el7               base     2.5 M
+    virtualbox-iso: emacs-filesystem           noarch     1:24.3-18.el7             base      58 k
+    virtualbox-iso: gdb                        x86_64     7.6.1-80.el7              base     2.4 M
+    virtualbox-iso: gettext-common-devel       noarch     0.18.2.1-4.el7            base     368 k
+    virtualbox-iso: gettext-devel              x86_64     0.18.2.1-4.el7            base     315 k
+    virtualbox-iso: glibc-devel                x86_64     2.17-105.el7              base     1.0 M
+    virtualbox-iso: glibc-headers              x86_64     2.17-105.el7              base     661 k
+    virtualbox-iso: kernel-devel               x86_64     3.10.0-327.el7            base      11 M
+    virtualbox-iso: kernel-headers             x86_64     3.10.0-327.el7            base     3.2 M
+    virtualbox-iso: libdwarf                   x86_64     20130207-4.el7            base     109 k
+    virtualbox-iso: libgfortran                x86_64     4.8.5-4.el7               base     293 k
+    virtualbox-iso: libgnome-keyring           x86_64     3.8.0-3.el7               base     109 k
+    virtualbox-iso: libmpc                     x86_64     1.0.1-3.el7               base      51 k
+    virtualbox-iso: libquadmath                x86_64     4.8.5-4.el7               base     182 k
+    virtualbox-iso: libquadmath-devel          x86_64     4.8.5-4.el7               base      46 k
+    virtualbox-iso: libstdc++-devel            x86_64     4.8.5-4.el7               base     1.5 M
+    virtualbox-iso: m4                         x86_64     1.4.16-10.el7             base     256 k
+    virtualbox-iso: mokutil                    x86_64     0.9-2.el7                 base      37 k
+    virtualbox-iso: mpfr                       x86_64     3.1.1-4.el7               base     203 k
+    virtualbox-iso: neon                       x86_64     0.30.0-3.el7              base     165 k
+    virtualbox-iso: pakchois                   x86_64     0.4-10.el7                base      14 k
+    virtualbox-iso: perl                       x86_64     4:5.16.3-286.el7          base     8.0 M
+    virtualbox-iso: perl-Carp                  noarch     1.26-244.el7              base      19 k
+    virtualbox-iso: perl-Data-Dumper           x86_64     2.145-3.el7               base      47 k
+    virtualbox-iso: perl-Encode                x86_64     2.51-7.el7                base     1.5 M
+    virtualbox-iso: perl-Error                 noarch     1:0.17020-2.el7           base      32 k
+    virtualbox-iso: perl-Exporter              noarch     5.68-3.el7                base      28 k
+    virtualbox-iso: perl-File-Path             noarch     2.09-2.el7                base      26 k
+    virtualbox-iso: perl-File-Temp             noarch     0.23.01-3.el7             base      56 k
+    virtualbox-iso: perl-Filter                x86_64     1.49-3.el7                base      76 k
+    virtualbox-iso: perl-Getopt-Long           noarch     2.40-2.el7                base      56 k
+    virtualbox-iso: perl-Git                   noarch     1.8.3.1-5.el7             base      53 k
+    virtualbox-iso: perl-HTTP-Tiny             noarch     0.033-3.el7               base      38 k
+    virtualbox-iso: perl-PathTools             x86_64     3.40-5.el7                base      82 k
+    virtualbox-iso: perl-Pod-Escapes           noarch     1:1.04-286.el7            base      50 k
+    virtualbox-iso: perl-Pod-Perldoc           noarch     3.20-4.el7                base      87 k
+    virtualbox-iso: perl-Pod-Simple            noarch     1:3.28-4.el7              base     216 k
+    virtualbox-iso: perl-Pod-Usage             noarch     1.63-3.el7                base      27 k
+    virtualbox-iso: perl-Scalar-List-Utils     x86_64     1.27-248.el7              base      36 k
+    virtualbox-iso: perl-Socket                x86_64     2.010-3.el7               base      49 k
+    virtualbox-iso: perl-Storable              x86_64     2.45-3.el7                base      77 k
+    virtualbox-iso: perl-TermReadKey           x86_64     2.30-20.el7               base      31 k
+    virtualbox-iso: perl-Test-Harness          noarch     3.28-3.el7                base     302 k
+    virtualbox-iso: perl-Text-ParseWords       noarch     3.29-4.el7                base      14 k
+    virtualbox-iso: perl-Thread-Queue          noarch     3.02-2.el7                base      17 k
+    virtualbox-iso: perl-Time-HiRes            x86_64     4:1.9725-3.el7            base      45 k
+    virtualbox-iso: perl-Time-Local            noarch     1.2300-2.el7              base      24 k
+    virtualbox-iso: perl-XML-Parser            x86_64     2.41-10.el7               base     223 k
+    virtualbox-iso: perl-constant              noarch     1.27-2.el7                base      19 k
+    virtualbox-iso: perl-libs                  x86_64     4:5.16.3-286.el7          base     687 k
+    virtualbox-iso: perl-macros                x86_64     4:5.16.3-286.el7          base      43 k
+    virtualbox-iso: perl-parent                noarch     1:0.225-244.el7           base      12 k
+    virtualbox-iso: perl-podlators             noarch     2.5.1-3.el7               base     112 k
+    virtualbox-iso: perl-srpm-macros           noarch     1-8.el7                   base     4.6 k
+    virtualbox-iso: perl-threads               x86_64     1.87-4.el7                base      49 k
+    virtualbox-iso: perl-threads-shared        x86_64     1.43-6.el7                base      39 k
+    virtualbox-iso: rsync                      x86_64     3.0.9-17.el7              base     360 k
+    virtualbox-iso: subversion-libs            x86_64     1.7.14-10.el7             base     921 k
+    virtualbox-iso: systemtap-client           x86_64     2.8-10.el7                base     2.9 M
+    virtualbox-iso: systemtap-devel            x86_64     2.8-10.el7                base     1.6 M
+    virtualbox-iso: systemtap-runtime          x86_64     2.8-10.el7                base     270 k
+    virtualbox-iso: unzip                      x86_64     6.0-15.el7                base     166 k
+    virtualbox-iso: zip                        x86_64     3.0-10.el7                base     260 k
+    virtualbox-iso:
+    virtualbox-iso: Transaction Summary
+    virtualbox-iso: ================================================================================
+    virtualbox-iso: Install  26 Packages (+70 Dependent packages)
+    virtualbox-iso:
+    virtualbox-iso: Total download size: 94 M
+    virtualbox-iso: Installed size: 270 M
+    virtualbox-iso: Downloading packages:
+    virtualbox-iso: Delta RPMs disabled because /usr/bin/applydeltarpm not installed.
+    virtualbox-iso: --------------------------------------------------------------------------------
+    virtualbox-iso: Total                                              1.3 MB/s |  94 MB  01:12
+    virtualbox-iso: Running transaction check
+    virtualbox-iso: Running transaction test
+    virtualbox-iso: Transaction test succeeded
+    virtualbox-iso: Running transaction
+    virtualbox-iso: Installing : mpfr-3.1.1-4.el7.x86_64                                     1/96
+    virtualbox-iso: Installing : libmpc-1.0.1-3.el7.x86_64                                   2/96
+    virtualbox-iso: Installing : libquadmath-4.8.5-4.el7.x86_64                              3/96
+    virtualbox-iso: Installing : apr-1.4.8-3.el7.x86_64                                      4/96
+    virtualbox-iso: Installing : m4-1.4.16-10.el7.x86_64                                     5/96
+    virtualbox-iso: Installing : apr-util-1.5.2-6.el7.x86_64                                 6/96
+    virtualbox-iso: Installing : unzip-6.0-15.el7.x86_64                                     7/96
+    virtualbox-iso: Installing : zip-3.0-10.el7.x86_64                                       8/96
+    virtualbox-iso: Installing : boost-system-1.53.0-25.el7.x86_64                           9/96
+    virtualbox-iso: Installing : patch-2.7.1-8.el7.x86_64                                   10/96
+    virtualbox-iso: Installing : boost-thread-1.53.0-25.el7.x86_64                          11/96
+    virtualbox-iso: Installing : libgfortran-4.8.5-4.el7.x86_64                             12/96
+    virtualbox-iso: Installing : cpp-4.8.5-4.el7.x86_64                                     13/96
+    virtualbox-iso: Installing : 1:perl-parent-0.225-244.el7.noarch                         14/96
+    virtualbox-iso: Installing : perl-HTTP-Tiny-0.033-3.el7.noarch                          15/96
+    virtualbox-iso: Installing : perl-podlators-2.5.1-3.el7.noarch                          16/96
+    virtualbox-iso: Installing : perl-Pod-Perldoc-3.20-4.el7.noarch                         17/96
+    virtualbox-iso: Installing : 1:perl-Pod-Escapes-1.04-286.el7.noarch                     18/96
+    virtualbox-iso: Installing : perl-Text-ParseWords-3.29-4.el7.noarch                     19/96
+    virtualbox-iso: Installing : perl-Encode-2.51-7.el7.x86_64                              20/96
+    virtualbox-iso: Installing : perl-Pod-Usage-1.63-3.el7.noarch                           21/96
+    virtualbox-iso: Installing : 4:perl-libs-5.16.3-286.el7.x86_64                          22/96
+    virtualbox-iso: Installing : perl-threads-1.87-4.el7.x86_64                             23/96
+    virtualbox-iso: Installing : perl-Carp-1.26-244.el7.noarch                              24/96
+    virtualbox-iso: Installing : 4:perl-Time-HiRes-1.9725-3.el7.x86_64                      25/96
+    virtualbox-iso: Installing : perl-threads-shared-1.43-6.el7.x86_64                      26/96
+    virtualbox-iso: Installing : perl-Scalar-List-Utils-1.27-248.el7.x86_64                 27/96
+    virtualbox-iso: Installing : perl-Storable-2.45-3.el7.x86_64                            28/96
+    virtualbox-iso: Installing : perl-Filter-1.49-3.el7.x86_64                              29/96
+    virtualbox-iso: Installing : perl-Exporter-5.68-3.el7.noarch                            30/96
+    virtualbox-iso: Installing : perl-constant-1.27-2.el7.noarch                            31/96
+    virtualbox-iso: Installing : perl-File-Temp-0.23.01-3.el7.noarch                        32/96
+    virtualbox-iso: Installing : perl-File-Path-2.09-2.el7.noarch                           33/96
+    virtualbox-iso: Installing : perl-PathTools-3.40-5.el7.x86_64                           34/96
+    virtualbox-iso: Installing : 4:perl-macros-5.16.3-286.el7.x86_64                        35/96
+    virtualbox-iso: Installing : perl-Time-Local-1.2300-2.el7.noarch                        36/96
+    virtualbox-iso: Installing : perl-Socket-2.010-3.el7.x86_64                             37/96
+    virtualbox-iso: Installing : 1:perl-Pod-Simple-3.28-4.el7.noarch                        38/96
+    virtualbox-iso: Installing : perl-Getopt-Long-2.40-2.el7.noarch                         39/96
+    virtualbox-iso: Installing : 4:perl-5.16.3-286.el7.x86_64                               40/96
+    virtualbox-iso: Installing : perl-Thread-Queue-3.02-2.el7.noarch                        41/96
+    virtualbox-iso: Installing : 1:perl-Error-0.17020-2.el7.noarch                          42/96
+    virtualbox-iso: Installing : perl-TermReadKey-2.30-20.el7.x86_64                        43/96
+    virtualbox-iso: Installing : perl-Data-Dumper-2.145-3.el7.x86_64                        44/96
+    virtualbox-iso: Installing : autoconf-2.69-11.el7.noarch                                45/96
+    virtualbox-iso: Installing : perl-XML-Parser-2.41-10.el7.x86_64                         46/96
+    virtualbox-iso: Installing : kernel-devel-3.10.0-327.el7.x86_64                         47/96
+    virtualbox-iso: Installing : perl-Test-Harness-3.28-3.el7.noarch                        48/96
+    virtualbox-iso: Installing : automake-1.13.4-3.el7.noarch                               49/96
+    virtualbox-iso: Installing : gdb-7.6.1-80.el7.x86_64                                    50/96
+    virtualbox-iso: Installing : 1:emacs-filesystem-24.3-18.el7.noarch                      51/96
+    virtualbox-iso: Installing : elfutils-0.163-3.el7.x86_64                                52/96
+    virtualbox-iso: Installing : rsync-3.0.9-17.el7.x86_64                                  53/96
+    virtualbox-iso: Installing : pakchois-0.4-10.el7.x86_64                                 54/96
+    virtualbox-iso: Installing : neon-0.30.0-3.el7.x86_64                                   55/96
+    virtualbox-iso: Installing : subversion-libs-1.7.14-10.el7.x86_64                       56/96
+    virtualbox-iso: Installing : dwz-0.11-3.el7.x86_64                                      57/96
+    virtualbox-iso: Installing : libstdc++-devel-4.8.5-4.el7.x86_64                         58/96
+    virtualbox-iso: Installing : kernel-headers-3.10.0-327.el7.x86_64                       59/96
+    virtualbox-iso: Installing : glibc-headers-2.17-105.el7.x86_64                          60/96
+    virtualbox-iso: Installing : glibc-devel-2.17-105.el7.x86_64                            61/96
+    virtualbox-iso: Installing : gcc-4.8.5-4.el7.x86_64                                     62/96
+    virtualbox-iso: Installing : systemtap-devel-2.8-10.el7.x86_64                          63/96
+    virtualbox-iso: Installing : libquadmath-devel-4.8.5-4.el7.x86_64                       64/96
+    virtualbox-iso: Installing : libgnome-keyring-3.8.0-3.el7.x86_64                        65/96
+    virtualbox-iso: Installing : perl-Git-1.8.3.1-5.el7.noarch                              66/96
+    virtualbox-iso: Installing : git-1.8.3.1-5.el7.x86_64                                   67/96
+    virtualbox-iso: Installing : gettext-common-devel-0.18.2.1-4.el7.noarch                 68/96
+    virtualbox-iso: Installing : gettext-devel-0.18.2.1-4.el7.x86_64                        69/96
+    virtualbox-iso: Installing : perl-srpm-macros-1-8.el7.noarch                            70/96
+    virtualbox-iso: Installing : redhat-rpm-config-9.1.0-68.el7.centos.noarch               71/96
+    virtualbox-iso: Installing : mokutil-0.9-2.el7.x86_64                                   72/96
+    virtualbox-iso: Installing : bzip2-1.0.6-13.el7.x86_64                                  73/96
+    virtualbox-iso: Installing : libdwarf-20130207-4.el7.x86_64                             74/96
+    virtualbox-iso: Installing : dyninst-8.2.0-2.el7.x86_64                                 75/96
+    virtualbox-iso: Installing : systemtap-runtime-2.8-10.el7.x86_64                        76/96
+    virtualbox-iso: Installing : systemtap-client-2.8-10.el7.x86_64                         77/96
+    virtualbox-iso: Installing : systemtap-2.8-10.el7.x86_64                                78/96
+    virtualbox-iso: Installing : rpm-build-4.11.3-17.el7.x86_64                             79/96
+    virtualbox-iso: Installing : intltool-0.50.2-6.el7.noarch                               80/96
+    virtualbox-iso: Installing : gcc-gfortran-4.8.5-4.el7.x86_64                            81/96
+    virtualbox-iso: Installing : gcc-c++-4.8.5-4.el7.x86_64                                 82/96
+    virtualbox-iso: Installing : libtool-2.4.2-20.el7.x86_64                                83/96
+    virtualbox-iso: Installing : subversion-1.7.14-10.el7.x86_64                            84/96
+    virtualbox-iso: Installing : cscope-15.8-7.el7.x86_64                                   85/96
+    virtualbox-iso: Installing : patchutils-0.3.3-4.el7.x86_64                              86/96
+    virtualbox-iso: Installing : bison-2.7-4.el7.x86_64                                     87/96
+    virtualbox-iso: Installing : flex-2.5.37-3.el7.x86_64                                   88/96
+    virtualbox-iso: Installing : rpm-sign-4.11.3-17.el7.x86_64                              89/96
+    virtualbox-iso: Installing : indent-2.2.11-13.el7.x86_64                                90/96
+    virtualbox-iso: Installing : ctags-5.8-13.el7.x86_64                                    91/96
+    virtualbox-iso: Installing : byacc-1.9.20130304-3.el7.x86_64                            92/96
+    virtualbox-iso: Installing : rcs-5.9.0-5.el7.x86_64                                     93/96
+    virtualbox-iso: Installing : swig-2.0.10-4.el7.x86_64                                   94/96
+    virtualbox-iso: Installing : diffstat-1.57-4.el7.x86_64                                 95/96
+    virtualbox-iso: Installing : 1:doxygen-1.8.5-3.el7.x86_64                               96/96
+    virtualbox-iso: Verifying  : perl-HTTP-Tiny-0.033-3.el7.noarch                           1/96
+    virtualbox-iso: Verifying  : libdwarf-20130207-4.el7.x86_64                              2/96
+    virtualbox-iso: Verifying  : 1:doxygen-1.8.5-3.el7.x86_64                                3/96
+    virtualbox-iso: Verifying  : perl-TermReadKey-2.30-20.el7.x86_64                         4/96
+    virtualbox-iso: Verifying  : perl-File-Temp-0.23.01-3.el7.noarch                         5/96
+    virtualbox-iso: Verifying  : cscope-15.8-7.el7.x86_64                                    6/96
+    virtualbox-iso: Verifying  : patch-2.7.1-8.el7.x86_64                                    7/96
+    virtualbox-iso: Verifying  : perl-Data-Dumper-2.145-3.el7.x86_64                         8/96
+    virtualbox-iso: Verifying  : apr-util-1.5.2-6.el7.x86_64                                 9/96
+    virtualbox-iso: Verifying  : systemtap-2.8-10.el7.x86_64                                10/96
+    virtualbox-iso: Verifying  : 1:perl-Pod-Escapes-1.04-286.el7.noarch                     11/96
+    virtualbox-iso: Verifying  : patchutils-0.3.3-4.el7.x86_64                              12/96
+    virtualbox-iso: Verifying  : neon-0.30.0-3.el7.x86_64                                   13/96
+    virtualbox-iso: Verifying  : subversion-libs-1.7.14-10.el7.x86_64                       14/96
+    virtualbox-iso: Verifying  : intltool-0.50.2-6.el7.noarch                               15/96
+    virtualbox-iso: Verifying  : perl-File-Path-2.09-2.el7.noarch                           16/96
+    virtualbox-iso: Verifying  : autoconf-2.69-11.el7.noarch                                17/96
+    virtualbox-iso: Verifying  : perl-Text-ParseWords-3.29-4.el7.noarch                     18/96
+    virtualbox-iso: Verifying  : diffstat-1.57-4.el7.x86_64                                 19/96
+    virtualbox-iso: Verifying  : perl-Carp-1.26-244.el7.noarch                              20/96
+    virtualbox-iso: Verifying  : swig-2.0.10-4.el7.x86_64                                   21/96
+    virtualbox-iso: Verifying  : systemtap-runtime-2.8-10.el7.x86_64                        22/96
+    virtualbox-iso: Verifying  : bison-2.7-4.el7.x86_64                                     23/96
+    virtualbox-iso: Verifying  : 4:perl-Time-HiRes-1.9725-3.el7.x86_64                      24/96
+    virtualbox-iso: Verifying  : glibc-headers-2.17-105.el7.x86_64                          25/96
+    virtualbox-iso: Verifying  : gcc-c++-4.8.5-4.el7.x86_64                                 26/96
+    virtualbox-iso: Verifying  : perl-XML-Parser-2.41-10.el7.x86_64                         27/96
+    virtualbox-iso: Verifying  : bzip2-1.0.6-13.el7.x86_64                                  28/96
+    virtualbox-iso: Verifying  : systemtap-devel-2.8-10.el7.x86_64                          29/96
+    virtualbox-iso: Verifying  : rcs-5.9.0-5.el7.x86_64                                     30/96
+    virtualbox-iso: Verifying  : libtool-2.4.2-20.el7.x86_64                                31/96
+    virtualbox-iso: Verifying  : libgfortran-4.8.5-4.el7.x86_64                             32/96
+    virtualbox-iso: Verifying  : libmpc-1.0.1-3.el7.x86_64                                  33/96
+    virtualbox-iso: Verifying  : perl-Pod-Usage-1.63-3.el7.noarch                           34/96
+    virtualbox-iso: Verifying  : perl-Encode-2.51-7.el7.x86_64                              35/96
+    virtualbox-iso: Verifying  : kernel-devel-3.10.0-327.el7.x86_64                         36/96
+    virtualbox-iso: Verifying  : boost-system-1.53.0-25.el7.x86_64                          37/96
+    virtualbox-iso: Verifying  : perl-threads-1.87-4.el7.x86_64                             38/96
+    virtualbox-iso: Verifying  : perl-Scalar-List-Utils-1.27-248.el7.x86_64                 39/96
+    virtualbox-iso: Verifying  : perl-Test-Harness-3.28-3.el7.noarch                        40/96
+    virtualbox-iso: Verifying  : mokutil-0.9-2.el7.x86_64                                   41/96
+    virtualbox-iso: Verifying  : gcc-4.8.5-4.el7.x86_64                                     42/96
+    virtualbox-iso: Verifying  : perl-threads-shared-1.43-6.el7.x86_64                      43/96
+    virtualbox-iso: Verifying  : perl-Storable-2.45-3.el7.x86_64                            44/96
+    virtualbox-iso: Verifying  : byacc-1.9.20130304-3.el7.x86_64                            45/96
+    virtualbox-iso: Verifying  : 4:perl-libs-5.16.3-286.el7.x86_64                          46/96
+    virtualbox-iso: Verifying  : m4-1.4.16-10.el7.x86_64                                    47/96
+    virtualbox-iso: Verifying  : perl-Git-1.8.3.1-5.el7.noarch                              48/96
+    virtualbox-iso: Verifying  : 1:perl-parent-0.225-244.el7.noarch                         49/96
+    virtualbox-iso: Verifying  : perl-srpm-macros-1-8.el7.noarch                            50/96
+    virtualbox-iso: Verifying  : gettext-common-devel-0.18.2.1-4.el7.noarch                 51/96
+    virtualbox-iso: Verifying  : libquadmath-devel-4.8.5-4.el7.x86_64                       52/96
+    virtualbox-iso: Verifying  : glibc-devel-2.17-105.el7.x86_64                            53/96
+    virtualbox-iso: Verifying  : rpm-build-4.11.3-17.el7.x86_64                             54/96
+    virtualbox-iso: Verifying  : libgnome-keyring-3.8.0-3.el7.x86_64                        55/96
+    virtualbox-iso: Verifying  : kernel-headers-3.10.0-327.el7.x86_64                       56/96
+    virtualbox-iso: Verifying  : libstdc++-devel-4.8.5-4.el7.x86_64                         57/96
+    virtualbox-iso: Verifying  : perl-podlators-2.5.1-3.el7.noarch                          58/96
+    virtualbox-iso: Verifying  : zip-3.0-10.el7.x86_64                                      59/96
+    virtualbox-iso: Verifying  : mpfr-3.1.1-4.el7.x86_64                                    60/96
+    virtualbox-iso: Verifying  : dyninst-8.2.0-2.el7.x86_64                                 61/96
+    virtualbox-iso: Verifying  : perl-Filter-1.49-3.el7.x86_64                              62/96
+    virtualbox-iso: Verifying  : dwz-0.11-3.el7.x86_64                                      63/96
+    virtualbox-iso: Verifying  : pakchois-0.4-10.el7.x86_64                                 64/96
+    virtualbox-iso: Verifying  : rsync-3.0.9-17.el7.x86_64                                  65/96
+    virtualbox-iso: Verifying  : git-1.8.3.1-5.el7.x86_64                                   66/96
+    virtualbox-iso: Verifying  : ctags-5.8-13.el7.x86_64                                    67/96
+    virtualbox-iso: Verifying  : automake-1.13.4-3.el7.noarch                               68/96
+    virtualbox-iso: Verifying  : perl-Exporter-5.68-3.el7.noarch                            69/96
+    virtualbox-iso: Verifying  : perl-constant-1.27-2.el7.noarch                            70/96
+    virtualbox-iso: Verifying  : perl-PathTools-3.40-5.el7.x86_64                           71/96
+    virtualbox-iso: Verifying  : elfutils-0.163-3.el7.x86_64                                72/96
+    virtualbox-iso: Verifying  : 4:perl-macros-5.16.3-286.el7.x86_64                        73/96
+    virtualbox-iso: Verifying  : apr-1.4.8-3.el7.x86_64                                     74/96
+    virtualbox-iso: Verifying  : 4:perl-5.16.3-286.el7.x86_64                               75/96
+    virtualbox-iso: Verifying  : subversion-1.7.14-10.el7.x86_64                            76/96
+    virtualbox-iso: Verifying  : perl-Thread-Queue-3.02-2.el7.noarch                        77/96
+    virtualbox-iso: Verifying  : 1:perl-Pod-Simple-3.28-4.el7.noarch                        78/96
+    virtualbox-iso: Verifying  : perl-Time-Local-1.2300-2.el7.noarch                        79/96
+    virtualbox-iso: Verifying  : perl-Pod-Perldoc-3.20-4.el7.noarch                         80/96
+    virtualbox-iso: Verifying  : perl-Socket-2.010-3.el7.x86_64                             81/96
+    virtualbox-iso: Verifying  : boost-thread-1.53.0-25.el7.x86_64                          82/96
+    virtualbox-iso: Verifying  : 1:emacs-filesystem-24.3-18.el7.noarch                      83/96
+    virtualbox-iso: Verifying  : systemtap-client-2.8-10.el7.x86_64                         84/96
+    virtualbox-iso: Verifying  : 1:perl-Error-0.17020-2.el7.noarch                          85/96
+    virtualbox-iso: Verifying  : indent-2.2.11-13.el7.x86_64                                86/96
+    virtualbox-iso: Verifying  : gcc-gfortran-4.8.5-4.el7.x86_64                            87/96
+    virtualbox-iso: Verifying  : flex-2.5.37-3.el7.x86_64                                   88/96
+    virtualbox-iso: Verifying  : unzip-6.0-15.el7.x86_64                                    89/96
+    virtualbox-iso: Verifying  : gettext-devel-0.18.2.1-4.el7.x86_64                        90/96
+    virtualbox-iso: Verifying  : gdb-7.6.1-80.el7.x86_64                                    91/96
+    virtualbox-iso: Verifying  : perl-Getopt-Long-2.40-2.el7.noarch                         92/96
+    virtualbox-iso: Verifying  : cpp-4.8.5-4.el7.x86_64                                     93/96
+    virtualbox-iso: Verifying  : redhat-rpm-config-9.1.0-68.el7.centos.noarch               94/96
+    virtualbox-iso: Verifying  : libquadmath-4.8.5-4.el7.x86_64                             95/96
+    virtualbox-iso: Verifying  : rpm-sign-4.11.3-17.el7.x86_64                              96/96
+    virtualbox-iso:
+    virtualbox-iso: Installed:
+    virtualbox-iso: autoconf.noarch 0:2.69-11.el7
+    virtualbox-iso: automake.noarch 0:1.13.4-3.el7
+    virtualbox-iso: bison.x86_64 0:2.7-4.el7
+    virtualbox-iso: byacc.x86_64 0:1.9.20130304-3.el7
+    virtualbox-iso: cscope.x86_64 0:15.8-7.el7
+    virtualbox-iso: ctags.x86_64 0:5.8-13.el7
+    virtualbox-iso: diffstat.x86_64 0:1.57-4.el7
+    virtualbox-iso: doxygen.x86_64 1:1.8.5-3.el7
+    virtualbox-iso: elfutils.x86_64 0:0.163-3.el7
+    virtualbox-iso: flex.x86_64 0:2.5.37-3.el7
+    virtualbox-iso: gcc.x86_64 0:4.8.5-4.el7
+    virtualbox-iso: gcc-c++.x86_64 0:4.8.5-4.el7
+    virtualbox-iso: gcc-gfortran.x86_64 0:4.8.5-4.el7
+    virtualbox-iso: git.x86_64 0:1.8.3.1-5.el7
+    virtualbox-iso: indent.x86_64 0:2.2.11-13.el7
+    virtualbox-iso: intltool.noarch 0:0.50.2-6.el7
+    virtualbox-iso: libtool.x86_64 0:2.4.2-20.el7
+    virtualbox-iso: patch.x86_64 0:2.7.1-8.el7
+    virtualbox-iso: patchutils.x86_64 0:0.3.3-4.el7
+    virtualbox-iso: rcs.x86_64 0:5.9.0-5.el7
+    virtualbox-iso: redhat-rpm-config.noarch 0:9.1.0-68.el7.centos
+    virtualbox-iso: rpm-build.x86_64 0:4.11.3-17.el7
+    virtualbox-iso: rpm-sign.x86_64 0:4.11.3-17.el7
+    virtualbox-iso: subversion.x86_64 0:1.7.14-10.el7
+    virtualbox-iso: swig.x86_64 0:2.0.10-4.el7
+    virtualbox-iso: systemtap.x86_64 0:2.8-10.el7
+    virtualbox-iso:
+    virtualbox-iso: Dependency Installed:
+    virtualbox-iso: apr.x86_64 0:1.4.8-3.el7
+    virtualbox-iso: apr-util.x86_64 0:1.5.2-6.el7
+    virtualbox-iso: boost-system.x86_64 0:1.53.0-25.el7
+    virtualbox-iso: boost-thread.x86_64 0:1.53.0-25.el7
+    virtualbox-iso: bzip2.x86_64 0:1.0.6-13.el7
+    virtualbox-iso: cpp.x86_64 0:4.8.5-4.el7
+    virtualbox-iso: dwz.x86_64 0:0.11-3.el7
+    virtualbox-iso: dyninst.x86_64 0:8.2.0-2.el7
+    virtualbox-iso: emacs-filesystem.noarch 1:24.3-18.el7
+    virtualbox-iso: gdb.x86_64 0:7.6.1-80.el7
+    virtualbox-iso: gettext-common-devel.noarch 0:0.18.2.1-4.el7
+    virtualbox-iso: gettext-devel.x86_64 0:0.18.2.1-4.el7
+    virtualbox-iso: glibc-devel.x86_64 0:2.17-105.el7
+    virtualbox-iso: glibc-headers.x86_64 0:2.17-105.el7
+    virtualbox-iso: kernel-devel.x86_64 0:3.10.0-327.el7
+    virtualbox-iso: kernel-headers.x86_64 0:3.10.0-327.el7
+    virtualbox-iso: libdwarf.x86_64 0:20130207-4.el7
+    virtualbox-iso: libgfortran.x86_64 0:4.8.5-4.el7
+    virtualbox-iso: libgnome-keyring.x86_64 0:3.8.0-3.el7
+    virtualbox-iso: libmpc.x86_64 0:1.0.1-3.el7
+    virtualbox-iso: libquadmath.x86_64 0:4.8.5-4.el7
+    virtualbox-iso: libquadmath-devel.x86_64 0:4.8.5-4.el7
+    virtualbox-iso: libstdc++-devel.x86_64 0:4.8.5-4.el7
+    virtualbox-iso: m4.x86_64 0:1.4.16-10.el7
+    virtualbox-iso: mokutil.x86_64 0:0.9-2.el7
+    virtualbox-iso: mpfr.x86_64 0:3.1.1-4.el7
+    virtualbox-iso: neon.x86_64 0:0.30.0-3.el7
+    virtualbox-iso: pakchois.x86_64 0:0.4-10.el7
+    virtualbox-iso: perl.x86_64 4:5.16.3-286.el7
+    virtualbox-iso: perl-Carp.noarch 0:1.26-244.el7
+    virtualbox-iso: perl-Data-Dumper.x86_64 0:2.145-3.el7
+    virtualbox-iso: perl-Encode.x86_64 0:2.51-7.el7
+    virtualbox-iso: perl-Error.noarch 1:0.17020-2.el7
+    virtualbox-iso: perl-Exporter.noarch 0:5.68-3.el7
+    virtualbox-iso: perl-File-Path.noarch 0:2.09-2.el7
+    virtualbox-iso: perl-File-Temp.noarch 0:0.23.01-3.el7
+    virtualbox-iso: perl-Filter.x86_64 0:1.49-3.el7
+    virtualbox-iso: perl-Getopt-Long.noarch 0:2.40-2.el7
+    virtualbox-iso: perl-Git.noarch 0:1.8.3.1-5.el7
+    virtualbox-iso: perl-HTTP-Tiny.noarch 0:0.033-3.el7
+    virtualbox-iso: perl-PathTools.x86_64 0:3.40-5.el7
+    virtualbox-iso: perl-Pod-Escapes.noarch 1:1.04-286.el7
+    virtualbox-iso: perl-Pod-Perldoc.noarch 0:3.20-4.el7
+    virtualbox-iso: perl-Pod-Simple.noarch 1:3.28-4.el7
+    virtualbox-iso: perl-Pod-Usage.noarch 0:1.63-3.el7
+    virtualbox-iso: perl-Scalar-List-Utils.x86_64 0:1.27-248.el7
+    virtualbox-iso: perl-Socket.x86_64 0:2.010-3.el7
+    virtualbox-iso: perl-Storable.x86_64 0:2.45-3.el7
+    virtualbox-iso: perl-TermReadKey.x86_64 0:2.30-20.el7
+    virtualbox-iso: perl-Test-Harness.noarch 0:3.28-3.el7
+    virtualbox-iso: perl-Text-ParseWords.noarch 0:3.29-4.el7
+    virtualbox-iso: perl-Thread-Queue.noarch 0:3.02-2.el7
+    virtualbox-iso: perl-Time-HiRes.x86_64 4:1.9725-3.el7
+    virtualbox-iso: perl-Time-Local.noarch 0:1.2300-2.el7
+    virtualbox-iso: perl-XML-Parser.x86_64 0:2.41-10.el7
+    virtualbox-iso: perl-constant.noarch 0:1.27-2.el7
+    virtualbox-iso: perl-libs.x86_64 4:5.16.3-286.el7
+    virtualbox-iso: perl-macros.x86_64 4:5.16.3-286.el7
+    virtualbox-iso: perl-parent.noarch 1:0.225-244.el7
+    virtualbox-iso: perl-podlators.noarch 0:2.5.1-3.el7
+    virtualbox-iso: perl-srpm-macros.noarch 0:1-8.el7
+    virtualbox-iso: perl-threads.x86_64 0:1.87-4.el7
+    virtualbox-iso: perl-threads-shared.x86_64 0:1.43-6.el7
+    virtualbox-iso: rsync.x86_64 0:3.0.9-17.el7
+    virtualbox-iso: subversion-libs.x86_64 0:1.7.14-10.el7
+    virtualbox-iso: systemtap-client.x86_64 0:2.8-10.el7
+    virtualbox-iso: systemtap-devel.x86_64 0:2.8-10.el7
+    virtualbox-iso: systemtap-runtime.x86_64 0:2.8-10.el7
+    virtualbox-iso: unzip.x86_64 0:6.0-15.el7
+    virtualbox-iso: zip.x86_64 0:3.0-10.el7
+    virtualbox-iso:
+    virtualbox-iso: Complete!
+    virtualbox-iso: + yum -y install kernel-headers kernel-devel
+    virtualbox-iso: Loaded plugins: fastestmirror
+    virtualbox-iso: Loading mirror speeds from cached hostfile
+    virtualbox-iso: Package kernel-headers-3.10.0-327.el7.x86_64 already installed and latest version
+    virtualbox-iso: Package kernel-devel-3.10.0-327.el7.x86_64 already installed and latest version
+    virtualbox-iso: Nothing to do
+    virtualbox-iso: + yum -y install python perl
+    virtualbox-iso: Loaded plugins: fastestmirror
+    virtualbox-iso: Loading mirror speeds from cached hostfile
+    virtualbox-iso: Package python-2.7.5-34.el7.x86_64 already installed and latest version
+    virtualbox-iso: Package 4:perl-5.16.3-286.el7.x86_64 already installed and latest version
+    virtualbox-iso: Nothing to do
+    virtualbox-iso: + yum -y install bind-utils
+    virtualbox-iso: Loaded plugins: fastestmirror
+    virtualbox-iso: Loading mirror speeds from cached hostfile
+    virtualbox-iso: Resolving Dependencies
+    virtualbox-iso: --> Running transaction check
+    virtualbox-iso: ---> Package bind-utils.x86_64 32:9.9.4-29.el7 will be installed
+    virtualbox-iso: --> Processing Dependency: bind-libs = 32:9.9.4-29.el7 for package: 32:bind-utils-9.9.4-29.el7.x86_64
+    virtualbox-iso: --> Processing Dependency: liblwres.so.90()(64bit) for package: 32:bind-utils-9.9.4-29.el7.x86_64
+    virtualbox-iso: --> Processing Dependency: libisccfg.so.90()(64bit) for package: 32:bind-utils-9.9.4-29.el7.x86_64
+    virtualbox-iso: --> Processing Dependency: libisccc.so.90()(64bit) for package: 32:bind-utils-9.9.4-29.el7.x86_64
+    virtualbox-iso: --> Processing Dependency: libisc.so.95()(64bit) for package: 32:bind-utils-9.9.4-29.el7.x86_64
+    virtualbox-iso: --> Processing Dependency: libdns.so.100()(64bit) for package: 32:bind-utils-9.9.4-29.el7.x86_64
+    virtualbox-iso: --> Processing Dependency: libbind9.so.90()(64bit) for package: 32:bind-utils-9.9.4-29.el7.x86_64
+    virtualbox-iso: --> Running transaction check
+    virtualbox-iso: ---> Package bind-libs.x86_64 32:9.9.4-29.el7 will be installed
+    virtualbox-iso: --> Finished Dependency Resolution
+    virtualbox-iso:
+    virtualbox-iso: Dependencies Resolved
+    virtualbox-iso:
+    virtualbox-iso: ================================================================================
+    virtualbox-iso: Package            Arch           Version                   Repository    Size
+    virtualbox-iso: ================================================================================
+    virtualbox-iso: Installing:
+    virtualbox-iso: bind-utils         x86_64         32:9.9.4-29.el7           base         200 k
+    virtualbox-iso: Installing for dependencies:
+    virtualbox-iso: bind-libs          x86_64         32:9.9.4-29.el7           base         1.0 M
+    virtualbox-iso:
+    virtualbox-iso: Transaction Summary
+    virtualbox-iso: ================================================================================
+    virtualbox-iso: Install  1 Package (+1 Dependent package)
+    virtualbox-iso:
+    virtualbox-iso: Total download size: 1.2 M
+    virtualbox-iso: Installed size: 3.0 M
+    virtualbox-iso: Downloading packages:
+    virtualbox-iso: --------------------------------------------------------------------------------
+    virtualbox-iso: Total                                              495 kB/s | 1.2 MB  00:02
+    virtualbox-iso: Running transaction check
+    virtualbox-iso: Running transaction test
+    virtualbox-iso: Transaction test succeeded
+    virtualbox-iso: Running transaction
+    virtualbox-iso: Installing : 32:bind-libs-9.9.4-29.el7.x86_64                             1/2
+    virtualbox-iso: Installing : 32:bind-utils-9.9.4-29.el7.x86_64                            2/2
+    virtualbox-iso: Verifying  : 32:bind-libs-9.9.4-29.el7.x86_64                             1/2
+    virtualbox-iso: Verifying  : 32:bind-utils-9.9.4-29.el7.x86_64                            2/2
+    virtualbox-iso:
+    virtualbox-iso: Installed:
+    virtualbox-iso: bind-utils.x86_64 32:9.9.4-29.el7
+    virtualbox-iso:
+    virtualbox-iso: Dependency Installed:
+    virtualbox-iso: bind-libs.x86_64 32:9.9.4-29.el7
+    virtualbox-iso:
+    virtualbox-iso: Complete!
+    virtualbox-iso: + yum -y install net-tools
+    virtualbox-iso: Loaded plugins: fastestmirror
+    virtualbox-iso: Loading mirror speeds from cached hostfile
+    virtualbox-iso: Resolving Dependencies
+    virtualbox-iso: --> Running transaction check
+    virtualbox-iso: ---> Package net-tools.x86_64 0:2.0-0.17.20131004git.el7 will be installed
+    virtualbox-iso: --> Finished Dependency Resolution
+    virtualbox-iso:
+    virtualbox-iso: Dependencies Resolved
+    virtualbox-iso:
+    virtualbox-iso: ================================================================================
+    virtualbox-iso: Package         Arch         Version                          Repository  Size
+    virtualbox-iso: ================================================================================
+    virtualbox-iso: Installing:
+    virtualbox-iso: net-tools       x86_64       2.0-0.17.20131004git.el7         base       304 k
+    virtualbox-iso:
+    virtualbox-iso: Transaction Summary
+    virtualbox-iso: ================================================================================
+    virtualbox-iso: Install  1 Package
+    virtualbox-iso:
+    virtualbox-iso: Total download size: 304 k
+    virtualbox-iso: Installed size: 917 k
+    virtualbox-iso: Downloading packages:
+    virtualbox-iso: Running transaction check
+    virtualbox-iso: Running transaction test
+    virtualbox-iso: Transaction test succeeded
+    virtualbox-iso: Running transaction
+    virtualbox-iso: Installing : net-tools-2.0-0.17.20131004git.el7.x86_64                    1/1
+    virtualbox-iso: Verifying  : net-tools-2.0-0.17.20131004git.el7.x86_64                    1/1
+    virtualbox-iso:
+    virtualbox-iso: Installed:
+    virtualbox-iso: net-tools.x86_64 0:2.0-0.17.20131004git.el7
+    virtualbox-iso:
+    virtualbox-iso: Complete!
+    virtualbox-iso: + yum -y install traceroute
+    virtualbox-iso: Loaded plugins: fastestmirror
+    virtualbox-iso: Loading mirror speeds from cached hostfile
+    virtualbox-iso: Resolving Dependencies
+    virtualbox-iso: --> Running transaction check
+    virtualbox-iso: ---> Package traceroute.x86_64 3:2.0.19-5.el7 will be installed
+    virtualbox-iso: --> Finished Dependency Resolution
+    virtualbox-iso:
+    virtualbox-iso: Dependencies Resolved
+    virtualbox-iso:
+    virtualbox-iso: ================================================================================
+    virtualbox-iso: Package            Arch           Version                   Repository    Size
+    virtualbox-iso: ================================================================================
+    virtualbox-iso: Installing:
+    virtualbox-iso: traceroute         x86_64         3:2.0.19-5.el7            base          58 k
+    virtualbox-iso:
+    virtualbox-iso: Transaction Summary
+    virtualbox-iso: ================================================================================
+    virtualbox-iso: Install  1 Package
+    virtualbox-iso:
+    virtualbox-iso: Total download size: 58 k
+    virtualbox-iso: Installed size: 91 k
+    virtualbox-iso: Downloading packages:
+    virtualbox-iso: Running transaction check
+    virtualbox-iso: Running transaction test
+    virtualbox-iso: Transaction test succeeded
+    virtualbox-iso: Running transaction
+    virtualbox-iso: Installing : 3:traceroute-2.0.19-5.el7.x86_64                             1/1
+    virtualbox-iso: Verifying  : 3:traceroute-2.0.19-5.el7.x86_64                             1/1
+    virtualbox-iso:
+    virtualbox-iso: Installed:
+    virtualbox-iso: traceroute.x86_64 3:2.0.19-5.el7
+    virtualbox-iso:
+    virtualbox-iso: Complete!
+    virtualbox-iso: + yum -y install tcpdump
+    virtualbox-iso: Loaded plugins: fastestmirror
+    virtualbox-iso: Loading mirror speeds from cached hostfile
+    virtualbox-iso: Resolving Dependencies
+    virtualbox-iso: --> Running transaction check
+    virtualbox-iso: ---> Package tcpdump.x86_64 14:4.5.1-3.el7 will be installed
+    virtualbox-iso: --> Finished Dependency Resolution
+    virtualbox-iso:
+    virtualbox-iso: Dependencies Resolved
+    virtualbox-iso:
+    virtualbox-iso: ================================================================================
+    virtualbox-iso: Package          Arch            Version                   Repository     Size
+    virtualbox-iso: ================================================================================
+    virtualbox-iso: Installing:
+    virtualbox-iso: tcpdump          x86_64          14:4.5.1-3.el7            base          387 k
+    virtualbox-iso:
+    virtualbox-iso: Transaction Summary
+    virtualbox-iso: ================================================================================
+    virtualbox-iso: Install  1 Package
+    virtualbox-iso:
+    virtualbox-iso: Total download size: 387 k
+    virtualbox-iso: Installed size: 931 k
+    virtualbox-iso: Downloading packages:
+    virtualbox-iso: Running transaction check
+    virtualbox-iso: Running transaction test
+    virtualbox-iso: Transaction test succeeded
+    virtualbox-iso: Running transaction
+    virtualbox-iso: Installing : 14:tcpdump-4.5.1-3.el7.x86_64                                1/1
+    virtualbox-iso: Verifying  : 14:tcpdump-4.5.1-3.el7.x86_64                                1/1
+    virtualbox-iso:
+    virtualbox-iso: Installed:
+    virtualbox-iso: tcpdump.x86_64 14:4.5.1-3.el7
+    virtualbox-iso:
+    virtualbox-iso: Complete!
+    virtualbox-iso: + yum -y install telnet nmap-ncat
+    virtualbox-iso: Loaded plugins: fastestmirror
+    virtualbox-iso: Loading mirror speeds from cached hostfile
+    virtualbox-iso: Resolving Dependencies
+    virtualbox-iso: --> Running transaction check
+    virtualbox-iso: ---> Package nmap-ncat.x86_64 2:6.40-7.el7 will be installed
+    virtualbox-iso: ---> Package telnet.x86_64 1:0.17-59.el7 will be installed
+    virtualbox-iso: --> Finished Dependency Resolution
+    virtualbox-iso:
+    virtualbox-iso: Dependencies Resolved
+    virtualbox-iso:
+    virtualbox-iso: ================================================================================
+    virtualbox-iso: Package            Arch            Version                 Repository     Size
+    virtualbox-iso: ================================================================================
+    virtualbox-iso: Installing:
+    virtualbox-iso: nmap-ncat          x86_64          2:6.40-7.el7            base          201 k
+    virtualbox-iso: telnet             x86_64          1:0.17-59.el7           base           63 k
+    virtualbox-iso:
+    virtualbox-iso: Transaction Summary
+    virtualbox-iso: ================================================================================
+    virtualbox-iso: Install  2 Packages
+    virtualbox-iso:
+    virtualbox-iso: Total download size: 264 k
+    virtualbox-iso: Installed size: 527 k
+    virtualbox-iso: Downloading packages:
+    virtualbox-iso: --------------------------------------------------------------------------------
+    virtualbox-iso: Total                                              467 kB/s | 264 kB  00:00
+    virtualbox-iso: Running transaction check
+    virtualbox-iso: Running transaction test
+    virtualbox-iso: Transaction test succeeded
+    virtualbox-iso: Running transaction
+    virtualbox-iso: Installing : 2:nmap-ncat-6.40-7.el7.x86_64                                1/2
+    virtualbox-iso: Installing : 1:telnet-0.17-59.el7.x86_64                                  2/2
+    virtualbox-iso: Verifying  : 1:telnet-0.17-59.el7.x86_64                                  1/2
+    virtualbox-iso: Verifying  : 2:nmap-ncat-6.40-7.el7.x86_64                                2/2
+    virtualbox-iso:
+    virtualbox-iso: Installed:
+    virtualbox-iso: nmap-ncat.x86_64 2:6.40-7.el7           telnet.x86_64 1:0.17-59.el7
+    virtualbox-iso:
+    virtualbox-iso: Complete!
+    virtualbox-iso: + yum -y install nfs-utils
+    virtualbox-iso: Loaded plugins: fastestmirror
+    virtualbox-iso: Loading mirror speeds from cached hostfile
+    virtualbox-iso: Resolving Dependencies
+    virtualbox-iso: --> Running transaction check
+    virtualbox-iso: ---> Package nfs-utils.x86_64 1:1.3.0-0.21.el7 will be installed
+    virtualbox-iso: --> Processing Dependency: libtirpc >= 0.2.3-1 for package: 1:nfs-utils-1.3.0-0.21.el7.x86_64
+    virtualbox-iso: --> Processing Dependency: gssproxy >= 0.3.0-0 for package: 1:nfs-utils-1.3.0-0.21.el7.x86_64
+    virtualbox-iso: --> Processing Dependency: rpcbind for package: 1:nfs-utils-1.3.0-0.21.el7.x86_64
+    virtualbox-iso: --> Processing Dependency: quota for package: 1:nfs-utils-1.3.0-0.21.el7.x86_64
+    virtualbox-iso: --> Processing Dependency: libnfsidmap for package: 1:nfs-utils-1.3.0-0.21.el7.x86_64
+    virtualbox-iso: --> Processing Dependency: libevent for package: 1:nfs-utils-1.3.0-0.21.el7.x86_64
+    virtualbox-iso: --> Processing Dependency: keyutils for package: 1:nfs-utils-1.3.0-0.21.el7.x86_64
+    virtualbox-iso: --> Processing Dependency: libtirpc.so.1()(64bit) for package: 1:nfs-utils-1.3.0-0.21.el7.x86_64
+    virtualbox-iso: --> Processing Dependency: libnfsidmap.so.0()(64bit) for package: 1:nfs-utils-1.3.0-0.21.el7.x86_64
+    virtualbox-iso: --> Processing Dependency: libevent-2.0.so.5()(64bit) for package: 1:nfs-utils-1.3.0-0.21.el7.x86_64
+    virtualbox-iso: --> Running transaction check
+    virtualbox-iso: ---> Package gssproxy.x86_64 0:0.4.1-7.el7 will be installed
+    virtualbox-iso: --> Processing Dependency: libverto-tevent for package: gssproxy-0.4.1-7.el7.x86_64
+    virtualbox-iso: --> Processing Dependency: libini_config.so.3(INI_CONFIG_1.1.0)(64bit) for package: gssproxy-0.4.1-7.el7.x86_64
+    virtualbox-iso: --> Processing Dependency: libref_array.so.1()(64bit) for package: gssproxy-0.4.1-7.el7.x86_64
+    virtualbox-iso: --> Processing Dependency: libini_config.so.3()(64bit) for package: gssproxy-0.4.1-7.el7.x86_64
+    virtualbox-iso: --> Processing Dependency: libcollection.so.2()(64bit) for package: gssproxy-0.4.1-7.el7.x86_64
+    virtualbox-iso: --> Processing Dependency: libbasicobjects.so.0()(64bit) for package: gssproxy-0.4.1-7.el7.x86_64
+    virtualbox-iso: ---> Package keyutils.x86_64 0:1.5.8-3.el7 will be installed
+    virtualbox-iso: ---> Package libevent.x86_64 0:2.0.21-4.el7 will be installed
+    virtualbox-iso: ---> Package libnfsidmap.x86_64 0:0.25-12.el7 will be installed
+    virtualbox-iso: ---> Package libtirpc.x86_64 0:0.2.4-0.6.el7 will be installed
+    virtualbox-iso: ---> Package quota.x86_64 1:4.01-11.el7 will be installed
+    virtualbox-iso: --> Processing Dependency: quota-nls = 1:4.01-11.el7 for package: 1:quota-4.01-11.el7.x86_64
+    virtualbox-iso: --> Processing Dependency: tcp_wrappers for package: 1:quota-4.01-11.el7.x86_64
+    virtualbox-iso: ---> Package rpcbind.x86_64 0:0.2.0-32.el7 will be installed
+    virtualbox-iso: --> Running transaction check
+    virtualbox-iso: ---> Package libbasicobjects.x86_64 0:0.1.1-25.el7 will be installed
+    virtualbox-iso: ---> Package libcollection.x86_64 0:0.6.2-25.el7 will be installed
+    virtualbox-iso: ---> Package libini_config.x86_64 0:1.2.0-25.el7 will be installed
+    virtualbox-iso: --> Processing Dependency: libpath_utils.so.1(PATH_UTILS_0.2.1)(64bit) for package: libini_config-1.2.0-25.el7.x86_64
+    virtualbox-iso: --> Processing Dependency: libpath_utils.so.1()(64bit) for package: libini_config-1.2.0-25.el7.x86_64
+    virtualbox-iso: ---> Package libref_array.x86_64 0:0.1.5-25.el7 will be installed
+    virtualbox-iso: ---> Package libverto-tevent.x86_64 0:0.2.5-4.el7 will be installed
+    virtualbox-iso: --> Processing Dependency: libtevent.so.0(TEVENT_0.9.9)(64bit) for package: libverto-tevent-0.2.5-4.el7.x86_64
+    virtualbox-iso: --> Processing Dependency: libtalloc.so.2(TALLOC_2.0.2)(64bit) for package: libverto-tevent-0.2.5-4.el7.x86_64
+    virtualbox-iso: --> Processing Dependency: libtevent.so.0()(64bit) for package: libverto-tevent-0.2.5-4.el7.x86_64
+    virtualbox-iso: --> Processing Dependency: libtalloc.so.2()(64bit) for package: libverto-tevent-0.2.5-4.el7.x86_64
+    virtualbox-iso: ---> Package quota-nls.noarch 1:4.01-11.el7 will be installed
+    virtualbox-iso: ---> Package tcp_wrappers.x86_64 0:7.6-77.el7 will be installed
+    virtualbox-iso: --> Running transaction check
+    virtualbox-iso: ---> Package libpath_utils.x86_64 0:0.2.1-25.el7 will be installed
+    virtualbox-iso: ---> Package libtalloc.x86_64 0:2.1.2-1.el7 will be installed
+    virtualbox-iso: ---> Package libtevent.x86_64 0:0.9.25-1.el7 will be installed
+    virtualbox-iso: --> Finished Dependency Resolution
+    virtualbox-iso:
+    virtualbox-iso: Dependencies Resolved
+    virtualbox-iso:
+    virtualbox-iso: ================================================================================
+    virtualbox-iso: Package                Arch          Version                 Repository   Size
+    virtualbox-iso: ================================================================================
+    virtualbox-iso: Installing:
+    virtualbox-iso: nfs-utils              x86_64        1:1.3.0-0.21.el7        base        370 k
+    virtualbox-iso: Installing for dependencies:
+    virtualbox-iso: gssproxy               x86_64        0.4.1-7.el7             base         84 k
+    virtualbox-iso: keyutils               x86_64        1.5.8-3.el7             base         54 k
+    virtualbox-iso: libbasicobjects        x86_64        0.1.1-25.el7            base         24 k
+    virtualbox-iso: libcollection          x86_64        0.6.2-25.el7            base         40 k
+    virtualbox-iso: libevent               x86_64        2.0.21-4.el7            base        214 k
+    virtualbox-iso: libini_config          x86_64        1.2.0-25.el7            base         59 k
+    virtualbox-iso: libnfsidmap            x86_64        0.25-12.el7             base         46 k
+    virtualbox-iso: libpath_utils          x86_64        0.2.1-25.el7            base         27 k
+    virtualbox-iso: libref_array           x86_64        0.1.5-25.el7            base         26 k
+    virtualbox-iso: libtalloc              x86_64        2.1.2-1.el7             base         31 k
+    virtualbox-iso: libtevent              x86_64        0.9.25-1.el7            base         32 k
+    virtualbox-iso: libtirpc               x86_64        0.2.4-0.6.el7           base         85 k
+    virtualbox-iso: libverto-tevent        x86_64        0.2.5-4.el7             base        9.0 k
+    virtualbox-iso: quota                  x86_64        1:4.01-11.el7           base        176 k
+    virtualbox-iso: quota-nls              noarch        1:4.01-11.el7           base         89 k
+    virtualbox-iso: rpcbind                x86_64        0.2.0-32.el7            base         57 k
+    virtualbox-iso: tcp_wrappers           x86_64        7.6-77.el7              base         78 k
+    virtualbox-iso:
+    virtualbox-iso: Transaction Summary
+    virtualbox-iso: ================================================================================
+    virtualbox-iso: Install  1 Package (+17 Dependent packages)
+    virtualbox-iso:
+    virtualbox-iso: Total download size: 1.5 M
+    virtualbox-iso: Installed size: 4.3 M
+    virtualbox-iso: Downloading packages:
+    virtualbox-iso: --------------------------------------------------------------------------------
+    virtualbox-iso: Total                                              175 kB/s | 1.5 MB  00:08
+    virtualbox-iso: Running transaction check
+    virtualbox-iso: Running transaction test
+    virtualbox-iso: Transaction test succeeded
+    virtualbox-iso: Running transaction
+    virtualbox-iso: Installing : libbasicobjects-0.1.1-25.el7.x86_64                         1/18
+    virtualbox-iso: Installing : libtirpc-0.2.4-0.6.el7.x86_64                               2/18
+    virtualbox-iso: Installing : libref_array-0.1.5-25.el7.x86_64                            3/18
+    virtualbox-iso: Installing : libcollection-0.6.2-25.el7.x86_64                           4/18
+    virtualbox-iso: Installing : libtalloc-2.1.2-1.el7.x86_64                                5/18
+    virtualbox-iso: Installing : libtevent-0.9.25-1.el7.x86_64                               6/18
+    virtualbox-iso: Installing : libverto-tevent-0.2.5-4.el7.x86_64                          7/18
+    virtualbox-iso: Installing : rpcbind-0.2.0-32.el7.x86_64                                 8/18
+    virtualbox-iso: Installing : libnfsidmap-0.25-12.el7.x86_64                              9/18
+    virtualbox-iso: Installing : 1:quota-nls-4.01-11.el7.noarch                             10/18
+    virtualbox-iso: Installing : keyutils-1.5.8-3.el7.x86_64                                11/18
+    virtualbox-iso: Installing : libevent-2.0.21-4.el7.x86_64                               12/18
+    virtualbox-iso: Installing : libpath_utils-0.2.1-25.el7.x86_64                          13/18
+    virtualbox-iso: Installing : libini_config-1.2.0-25.el7.x86_64                          14/18
+    virtualbox-iso: Installing : gssproxy-0.4.1-7.el7.x86_64                                15/18
+    virtualbox-iso: Installing : tcp_wrappers-7.6-77.el7.x86_64                             16/18
+    virtualbox-iso: Installing : 1:quota-4.01-11.el7.x86_64                                 17/18
+    virtualbox-iso: Installing : 1:nfs-utils-1.3.0-0.21.el7.x86_64                          18/18
+    virtualbox-iso: Verifying  : libini_config-1.2.0-25.el7.x86_64                           1/18
+    virtualbox-iso: Verifying  : tcp_wrappers-7.6-77.el7.x86_64                              2/18
+    virtualbox-iso: Verifying  : libverto-tevent-0.2.5-4.el7.x86_64                          3/18
+    virtualbox-iso: Verifying  : libtalloc-2.1.2-1.el7.x86_64                                4/18
+    virtualbox-iso: Verifying  : libcollection-0.6.2-25.el7.x86_64                           5/18
+    virtualbox-iso: Verifying  : 1:nfs-utils-1.3.0-0.21.el7.x86_64                           6/18
+    virtualbox-iso: Verifying  : libpath_utils-0.2.1-25.el7.x86_64                           7/18
+    virtualbox-iso: Verifying  : libevent-2.0.21-4.el7.x86_64                                8/18
+    virtualbox-iso: Verifying  : keyutils-1.5.8-3.el7.x86_64                                 9/18
+    virtualbox-iso: Verifying  : libref_array-0.1.5-25.el7.x86_64                           10/18
+    virtualbox-iso: Verifying  : rpcbind-0.2.0-32.el7.x86_64                                11/18
+    virtualbox-iso: Verifying  : libtirpc-0.2.4-0.6.el7.x86_64                              12/18
+    virtualbox-iso: Verifying  : gssproxy-0.4.1-7.el7.x86_64                                13/18
+    virtualbox-iso: Verifying  : 1:quota-nls-4.01-11.el7.noarch                             14/18
+    virtualbox-iso: Verifying  : 1:quota-4.01-11.el7.x86_64                                 15/18
+    virtualbox-iso: Verifying  : libtevent-0.9.25-1.el7.x86_64                              16/18
+    virtualbox-iso: Verifying  : libbasicobjects-0.1.1-25.el7.x86_64                        17/18
+    virtualbox-iso: Verifying  : libnfsidmap-0.25-12.el7.x86_64                             18/18
+    virtualbox-iso:
+    virtualbox-iso: Installed:
+    virtualbox-iso: nfs-utils.x86_64 1:1.3.0-0.21.el7
+    virtualbox-iso:
+    virtualbox-iso: Dependency Installed:
+    virtualbox-iso: gssproxy.x86_64 0:0.4.1-7.el7           keyutils.x86_64 0:1.5.8-3.el7
+    virtualbox-iso: libbasicobjects.x86_64 0:0.1.1-25.el7   libcollection.x86_64 0:0.6.2-25.el7
+    virtualbox-iso: libevent.x86_64 0:2.0.21-4.el7          libini_config.x86_64 0:1.2.0-25.el7
+    virtualbox-iso: libnfsidmap.x86_64 0:0.25-12.el7        libpath_utils.x86_64 0:0.2.1-25.el7
+    virtualbox-iso: libref_array.x86_64 0:0.1.5-25.el7      libtalloc.x86_64 0:2.1.2-1.el7
+    virtualbox-iso: libtevent.x86_64 0:0.9.25-1.el7         libtirpc.x86_64 0:0.2.4-0.6.el7
+    virtualbox-iso: libverto-tevent.x86_64 0:0.2.5-4.el7    quota.x86_64 1:4.01-11.el7
+    virtualbox-iso: quota-nls.noarch 1:4.01-11.el7          rpcbind.x86_64 0:0.2.0-32.el7
+    virtualbox-iso: tcp_wrappers.x86_64 0:7.6-77.el7
+    virtualbox-iso:
+    virtualbox-iso: Complete!
+    virtualbox-iso: + yum -y install wget curl curl-devel
+    virtualbox-iso: Loaded plugins: fastestmirror
+    virtualbox-iso: Loading mirror speeds from cached hostfile
+    virtualbox-iso: Package curl-7.29.0-25.el7.centos.x86_64 already installed and latest version
+    virtualbox-iso: Resolving Dependencies
+    virtualbox-iso: --> Running transaction check
+    virtualbox-iso: ---> Package libcurl-devel.x86_64 0:7.29.0-25.el7.centos will be installed
+    virtualbox-iso: ---> Package wget.x86_64 0:1.14-10.el7_0.1 will be installed
+    virtualbox-iso: --> Finished Dependency Resolution
+    virtualbox-iso:
+    virtualbox-iso: Dependencies Resolved
+    virtualbox-iso:
+    virtualbox-iso: ================================================================================
+    virtualbox-iso: Package             Arch         Version                      Repository  Size
+    virtualbox-iso: ================================================================================
+    virtualbox-iso: Installing:
+    virtualbox-iso: libcurl-devel       x86_64       7.29.0-25.el7.centos         base       297 k
+    virtualbox-iso: wget                x86_64       1.14-10.el7_0.1              base       545 k
+    virtualbox-iso:
+    virtualbox-iso: Transaction Summary
+    virtualbox-iso: ================================================================================
+    virtualbox-iso: Install  2 Packages
+    virtualbox-iso:
+    virtualbox-iso: Total download size: 842 k
+    virtualbox-iso: Installed size: 2.6 M
+    virtualbox-iso: Downloading packages:
+    virtualbox-iso: --------------------------------------------------------------------------------
+    virtualbox-iso: Total                                              1.0 MB/s | 842 kB  00:00
+    virtualbox-iso: Running transaction check
+    virtualbox-iso: Running transaction test
+    virtualbox-iso: Transaction test succeeded
+    virtualbox-iso: Running transaction
+    virtualbox-iso: Installing : wget-1.14-10.el7_0.1.x86_64                                  1/2
+    virtualbox-iso: Installing : libcurl-devel-7.29.0-25.el7.centos.x86_64                    2/2
+    virtualbox-iso: Verifying  : libcurl-devel-7.29.0-25.el7.centos.x86_64                    1/2
+    virtualbox-iso: Verifying  : wget-1.14-10.el7_0.1.x86_64                                  2/2
+    virtualbox-iso:
+    virtualbox-iso: Installed:
+    virtualbox-iso: libcurl-devel.x86_64 0:7.29.0-25.el7.centos   wget.x86_64 0:1.14-10.el7_0.1
+    virtualbox-iso:
+    virtualbox-iso: Complete!
+    virtualbox-iso: + yum -y install ltrace strace
+    virtualbox-iso: Loaded plugins: fastestmirror
+    virtualbox-iso: Loading mirror speeds from cached hostfile
+    virtualbox-iso: Resolving Dependencies
+    virtualbox-iso: --> Running transaction check
+    virtualbox-iso: ---> Package ltrace.x86_64 0:0.7.91-14.el7 will be installed
+    virtualbox-iso: ---> Package strace.x86_64 0:4.8-11.el7 will be installed
+    virtualbox-iso: --> Finished Dependency Resolution
+    virtualbox-iso:
+    virtualbox-iso: Dependencies Resolved
+    virtualbox-iso:
+    virtualbox-iso: ================================================================================
+    virtualbox-iso: Package          Arch             Version                 Repository      Size
+    virtualbox-iso: ================================================================================
+    virtualbox-iso: Installing:
+    virtualbox-iso: ltrace           x86_64           0.7.91-14.el7           base           146 k
+    virtualbox-iso: strace           x86_64           4.8-11.el7              base           265 k
+    virtualbox-iso:
+    virtualbox-iso: Transaction Summary
+    virtualbox-iso: ================================================================================
+    virtualbox-iso: Install  2 Packages
+    virtualbox-iso:
+    virtualbox-iso: Total download size: 411 k
+    virtualbox-iso: Installed size: 1.2 M
+    virtualbox-iso: Downloading packages:
+    virtualbox-iso: --------------------------------------------------------------------------------
+    virtualbox-iso: Total                                              562 kB/s | 411 kB  00:00
+    virtualbox-iso: Running transaction check
+    virtualbox-iso: Running transaction test
+    virtualbox-iso: Transaction test succeeded
+    virtualbox-iso: Running transaction
+    virtualbox-iso: Installing : ltrace-0.7.91-14.el7.x86_64                                  1/2
+    virtualbox-iso: Installing : strace-4.8-11.el7.x86_64                                     2/2
+    virtualbox-iso: Verifying  : strace-4.8-11.el7.x86_64                                     1/2
+    virtualbox-iso: Verifying  : ltrace-0.7.91-14.el7.x86_64                                  2/2
+    virtualbox-iso:
+    virtualbox-iso: Installed:
+    virtualbox-iso: ltrace.x86_64 0:0.7.91-14.el7            strace.x86_64 0:4.8-11.el7
+    virtualbox-iso:
+    virtualbox-iso: Complete!
+    virtualbox-iso: + yum -y install systemtap systemtap-sdt-devel
+    virtualbox-iso: Loaded plugins: fastestmirror
+    virtualbox-iso: Loading mirror speeds from cached hostfile
+    virtualbox-iso: Package systemtap-2.8-10.el7.x86_64 already installed and latest version
+    virtualbox-iso: Resolving Dependencies
+    virtualbox-iso: --> Running transaction check
+    virtualbox-iso: ---> Package systemtap-sdt-devel.x86_64 0:2.8-10.el7 will be installed
+    virtualbox-iso: --> Processing Dependency: pyparsing for package: systemtap-sdt-devel-2.8-10.el7.x86_64
+    virtualbox-iso: --> Running transaction check
+    virtualbox-iso: ---> Package pyparsing.noarch 0:1.5.6-9.el7 will be installed
+    virtualbox-iso: --> Finished Dependency Resolution
+    virtualbox-iso:
+    virtualbox-iso: Dependencies Resolved
+    virtualbox-iso:
+    virtualbox-iso: ================================================================================
+    virtualbox-iso: Package                    Arch          Version             Repository   Size
+    virtualbox-iso: ================================================================================
+    virtualbox-iso: Installing:
+    virtualbox-iso: systemtap-sdt-devel        x86_64        2.8-10.el7          base         65 k
+    virtualbox-iso: Installing for dependencies:
+    virtualbox-iso: pyparsing                  noarch        1.5.6-9.el7         base         94 k
+    virtualbox-iso:
+    virtualbox-iso: Transaction Summary
+    virtualbox-iso: ================================================================================
+    virtualbox-iso: Install  1 Package (+1 Dependent package)
+    virtualbox-iso:
+    virtualbox-iso: Total download size: 159 k
+    virtualbox-iso: Installed size: 523 k
+    virtualbox-iso: Downloading packages:
+    virtualbox-iso: --------------------------------------------------------------------------------
+    virtualbox-iso: Total                                              268 kB/s | 159 kB  00:00
+    virtualbox-iso: Running transaction check
+    virtualbox-iso: Running transaction test
+    virtualbox-iso: Transaction test succeeded
+    virtualbox-iso: Running transaction
+    virtualbox-iso: Installing : pyparsing-1.5.6-9.el7.noarch                                 1/2
+    virtualbox-iso: Installing : systemtap-sdt-devel-2.8-10.el7.x86_64                        2/2
+    virtualbox-iso: Verifying  : pyparsing-1.5.6-9.el7.noarch                                 1/2
+    virtualbox-iso: Verifying  : systemtap-sdt-devel-2.8-10.el7.x86_64                        2/2
+    virtualbox-iso:
+    virtualbox-iso: Installed:
+    virtualbox-iso: systemtap-sdt-devel.x86_64 0:2.8-10.el7
+    virtualbox-iso:
+    virtualbox-iso: Dependency Installed:
+    virtualbox-iso: pyparsing.noarch 0:1.5.6-9.el7
+    virtualbox-iso:
+    virtualbox-iso: Complete!
+    virtualbox-iso: + yum -y install tmux
+    virtualbox-iso: Loaded plugins: fastestmirror
+    virtualbox-iso: Loading mirror speeds from cached hostfile
+    virtualbox-iso: Resolving Dependencies
+    virtualbox-iso: --> Running transaction check
+    virtualbox-iso: ---> Package tmux.x86_64 0:1.8-4.el7 will be installed
+    virtualbox-iso: --> Finished Dependency Resolution
+    virtualbox-iso:
+    virtualbox-iso: Dependencies Resolved
+    virtualbox-iso:
+    virtualbox-iso: ================================================================================
+    virtualbox-iso: Package         Arch              Version                Repository       Size
+    virtualbox-iso: ================================================================================
+    virtualbox-iso: Installing:
+    virtualbox-iso: tmux            x86_64            1.8-4.el7              base            243 k
+    virtualbox-iso:
+    virtualbox-iso: Transaction Summary
+    virtualbox-iso: ================================================================================
+    virtualbox-iso: Install  1 Package
+    virtualbox-iso:
+    virtualbox-iso: Total download size: 243 k
+    virtualbox-iso: Installed size: 558 k
+    virtualbox-iso: Downloading packages:
+    virtualbox-iso: Running transaction check
+    virtualbox-iso: Running transaction test
+    virtualbox-iso: Transaction test succeeded
+    virtualbox-iso: Running transaction
+    virtualbox-iso: Installing : tmux-1.8-4.el7.x86_64                                        1/1
+    virtualbox-iso: Verifying  : tmux-1.8-4.el7.x86_64                                        1/1
+    virtualbox-iso:
+    virtualbox-iso: Installed:
+    virtualbox-iso: tmux.x86_64 0:1.8-4.el7
+    virtualbox-iso:
+    virtualbox-iso: Complete!
+    virtualbox-iso: + yum -y install vim-enhanced
+    virtualbox-iso: Loaded plugins: fastestmirror
+    virtualbox-iso: Loading mirror speeds from cached hostfile
+    virtualbox-iso: Resolving Dependencies
+    virtualbox-iso: --> Running transaction check
+    virtualbox-iso: ---> Package vim-enhanced.x86_64 2:7.4.160-1.el7 will be installed
+    virtualbox-iso: --> Processing Dependency: vim-common = 2:7.4.160-1.el7 for package: 2:vim-enhanced-7.4.160-1.el7.x86_64
+    virtualbox-iso: --> Processing Dependency: libgpm.so.2()(64bit) for package: 2:vim-enhanced-7.4.160-1.el7.x86_64
+    virtualbox-iso: --> Running transaction check
+    virtualbox-iso: ---> Package gpm-libs.x86_64 0:1.20.7-5.el7 will be installed
+    virtualbox-iso: ---> Package vim-common.x86_64 2:7.4.160-1.el7 will be installed
+    virtualbox-iso: --> Processing Dependency: vim-filesystem for package: 2:vim-common-7.4.160-1.el7.x86_64
+    virtualbox-iso: --> Running transaction check
+    virtualbox-iso: ---> Package vim-filesystem.x86_64 2:7.4.160-1.el7 will be installed
+    virtualbox-iso: --> Finished Dependency Resolution
+    virtualbox-iso:
+    virtualbox-iso: Dependencies Resolved
+    virtualbox-iso:
+    virtualbox-iso: ================================================================================
+    virtualbox-iso: Package               Arch          Version                  Repository   Size
+    virtualbox-iso: ================================================================================
+    virtualbox-iso: Installing:
+    virtualbox-iso: vim-enhanced          x86_64        2:7.4.160-1.el7          base        1.0 M
+    virtualbox-iso: Installing for dependencies:
+    virtualbox-iso: gpm-libs              x86_64        1.20.7-5.el7             base         32 k
+    virtualbox-iso: vim-common            x86_64        2:7.4.160-1.el7          base        5.9 M
+    virtualbox-iso: vim-filesystem        x86_64        2:7.4.160-1.el7          base        9.6 k
+    virtualbox-iso:
+    virtualbox-iso: Transaction Summary
+    virtualbox-iso: ================================================================================
+    virtualbox-iso: Install  1 Package (+3 Dependent packages)
+    virtualbox-iso:
+    virtualbox-iso: Total download size: 7.0 M
+    virtualbox-iso: Installed size: 23 M
+    virtualbox-iso: Downloading packages:
+    virtualbox-iso: --------------------------------------------------------------------------------
+    virtualbox-iso: Total                                              2.5 MB/s | 7.0 MB  00:02
+    virtualbox-iso: Running transaction check
+    virtualbox-iso: Running transaction test
+    virtualbox-iso: Transaction test succeeded
+    virtualbox-iso: Running transaction
+    virtualbox-iso: Installing : gpm-libs-1.20.7-5.el7.x86_64                                 1/4
+    virtualbox-iso: Installing : 2:vim-filesystem-7.4.160-1.el7.x86_64                        2/4
+    virtualbox-iso: Installing : 2:vim-common-7.4.160-1.el7.x86_64                            3/4
+    virtualbox-iso: Installing : 2:vim-enhanced-7.4.160-1.el7.x86_64                          4/4
+    virtualbox-iso: Verifying  : 2:vim-common-7.4.160-1.el7.x86_64                            1/4
+    virtualbox-iso: Verifying  : 2:vim-filesystem-7.4.160-1.el7.x86_64                        2/4
+    virtualbox-iso: Verifying  : gpm-libs-1.20.7-5.el7.x86_64                                 3/4
+    virtualbox-iso: Verifying  : 2:vim-enhanced-7.4.160-1.el7.x86_64                          4/4
+    virtualbox-iso:
+    virtualbox-iso: Installed:
+    virtualbox-iso: vim-enhanced.x86_64 2:7.4.160-1.el7
+    virtualbox-iso:
+    virtualbox-iso: Dependency Installed:
+    virtualbox-iso: gpm-libs.x86_64 0:1.20.7-5.el7           vim-common.x86_64 2:7.4.160-1.el7
+    virtualbox-iso: vim-filesystem.x86_64 2:7.4.160-1.el7
+    virtualbox-iso:
+    virtualbox-iso: Complete!
+    virtualbox-iso: + yum -y install zlib zlib-devel bzip2 bzip2-devel xz xz-devel
+    virtualbox-iso: Loaded plugins: fastestmirror
+    virtualbox-iso: Loading mirror speeds from cached hostfile
+    virtualbox-iso: Package zlib-1.2.7-15.el7.x86_64 already installed and latest version
+    virtualbox-iso: Package bzip2-1.0.6-13.el7.x86_64 already installed and latest version
+    virtualbox-iso: Package xz-5.1.2-12alpha.el7.x86_64 already installed and latest version
+    virtualbox-iso: Resolving Dependencies
+    virtualbox-iso: --> Running transaction check
+    virtualbox-iso: ---> Package bzip2-devel.x86_64 0:1.0.6-13.el7 will be installed
+    virtualbox-iso: ---> Package xz-devel.x86_64 0:5.1.2-12alpha.el7 will be installed
+    virtualbox-iso: ---> Package zlib-devel.x86_64 0:1.2.7-15.el7 will be installed
+    virtualbox-iso: --> Finished Dependency Resolution
+    virtualbox-iso:
+    virtualbox-iso: Dependencies Resolved
+    virtualbox-iso:
+    virtualbox-iso: ================================================================================
+    virtualbox-iso: Package            Arch          Version                     Repository   Size
+    virtualbox-iso: ================================================================================
+    virtualbox-iso: Installing:
+    virtualbox-iso: bzip2-devel        x86_64        1.0.6-13.el7                base        218 k
+    virtualbox-iso: xz-devel           x86_64        5.1.2-12alpha.el7           base         44 k
+    virtualbox-iso: zlib-devel         x86_64        1.2.7-15.el7                base         50 k
+    virtualbox-iso:
+    virtualbox-iso: Transaction Summary
+    virtualbox-iso: ================================================================================
+    virtualbox-iso: Install  3 Packages
+    virtualbox-iso:
+    virtualbox-iso: Total download size: 312 k
+    virtualbox-iso: Installed size: 673 k
+    virtualbox-iso: Downloading packages:
+    virtualbox-iso: --------------------------------------------------------------------------------
+    virtualbox-iso: Total                                              451 kB/s | 312 kB  00:00
+    virtualbox-iso: Running transaction check
+    virtualbox-iso: Running transaction test
+    virtualbox-iso: Transaction test succeeded
+    virtualbox-iso: Running transaction
+    virtualbox-iso: Installing : xz-devel-5.1.2-12alpha.el7.x86_64                            1/3
+    virtualbox-iso: Installing : bzip2-devel-1.0.6-13.el7.x86_64                              2/3
+    virtualbox-iso: Installing : zlib-devel-1.2.7-15.el7.x86_64                               3/3
+    virtualbox-iso: Verifying  : zlib-devel-1.2.7-15.el7.x86_64                               1/3
+    virtualbox-iso: Verifying  : bzip2-devel-1.0.6-13.el7.x86_64                              2/3
+    virtualbox-iso: Verifying  : xz-devel-5.1.2-12alpha.el7.x86_64                            3/3
+    virtualbox-iso:
+    virtualbox-iso: Installed:
+    virtualbox-iso: bzip2-devel.x86_64 0:1.0.6-13.el7     xz-devel.x86_64 0:5.1.2-12alpha.el7
+    virtualbox-iso: zlib-devel.x86_64 0:1.2.7-15.el7
+    virtualbox-iso:
+    virtualbox-iso: Complete!
+    virtualbox-iso: + yum -y install ncurses ncurses-devel readline readline-devel
+    virtualbox-iso: Loaded plugins: fastestmirror
+    virtualbox-iso: Loading mirror speeds from cached hostfile
+    virtualbox-iso: Package ncurses-5.9-13.20130511.el7.x86_64 already installed and latest version
+    virtualbox-iso: Package readline-6.2-9.el7.x86_64 already installed and latest version
+    virtualbox-iso: Resolving Dependencies
+    virtualbox-iso: --> Running transaction check
+    virtualbox-iso: ---> Package ncurses-devel.x86_64 0:5.9-13.20130511.el7 will be installed
+    virtualbox-iso: ---> Package readline-devel.x86_64 0:6.2-9.el7 will be installed
+    virtualbox-iso: --> Finished Dependency Resolution
+    virtualbox-iso:
+    virtualbox-iso: Dependencies Resolved
+    virtualbox-iso:
+    virtualbox-iso: ================================================================================
+    virtualbox-iso: Package              Arch         Version                     Repository  Size
+    virtualbox-iso: ================================================================================
+    virtualbox-iso: Installing:
+    virtualbox-iso: ncurses-devel        x86_64       5.9-13.20130511.el7         base       713 k
+    virtualbox-iso: readline-devel       x86_64       6.2-9.el7                   base       138 k
+    virtualbox-iso:
+    virtualbox-iso: Transaction Summary
+    virtualbox-iso: ================================================================================
+    virtualbox-iso: Install  2 Packages
+    virtualbox-iso:
+    virtualbox-iso: Total download size: 851 k
+    virtualbox-iso: Installed size: 2.4 M
+    virtualbox-iso: Downloading packages:
+    virtualbox-iso: --------------------------------------------------------------------------------
+    virtualbox-iso: Total                                              1.0 MB/s | 851 kB  00:00
+    virtualbox-iso: Running transaction check
+    virtualbox-iso: Running transaction test
+    virtualbox-iso: Transaction test succeeded
+    virtualbox-iso: Running transaction
+    virtualbox-iso: Installing : ncurses-devel-5.9-13.20130511.el7.x86_64                     1/2
+    virtualbox-iso: Installing : readline-devel-6.2-9.el7.x86_64                              2/2
+    virtualbox-iso: Verifying  : readline-devel-6.2-9.el7.x86_64                              1/2
+    virtualbox-iso: Verifying  : ncurses-devel-5.9-13.20130511.el7.x86_64                     2/2
+    virtualbox-iso:
+    virtualbox-iso: Installed:
+    virtualbox-iso: ncurses-devel.x86_64 0:5.9-13.20130511.el7  readline-devel.x86_64 0:6.2-9.el7
+    virtualbox-iso:
+    virtualbox-iso: Complete!
+    virtualbox-iso: + yum -y install openssl-devel
+    virtualbox-iso: Loaded plugins: fastestmirror
+    virtualbox-iso: Loading mirror speeds from cached hostfile
+    virtualbox-iso: Resolving Dependencies
+    virtualbox-iso: --> Running transaction check
+    virtualbox-iso: ---> Package openssl-devel.x86_64 1:1.0.1e-42.el7.9 will be installed
+    virtualbox-iso: --> Processing Dependency: krb5-devel(x86-64) for package: 1:openssl-devel-1.0.1e-42.el7.9.x86_64
+    virtualbox-iso: --> Running transaction check
+    virtualbox-iso: ---> Package krb5-devel.x86_64 0:1.13.2-10.el7 will be installed
+    virtualbox-iso: --> Processing Dependency: libverto-devel for package: krb5-devel-1.13.2-10.el7.x86_64
+    virtualbox-iso: --> Processing Dependency: libselinux-devel for package: krb5-devel-1.13.2-10.el7.x86_64
+    virtualbox-iso: --> Processing Dependency: libcom_err-devel for package: krb5-devel-1.13.2-10.el7.x86_64
+    virtualbox-iso: --> Processing Dependency: keyutils-libs-devel for package: krb5-devel-1.13.2-10.el7.x86_64
+    virtualbox-iso: --> Running transaction check
+    virtualbox-iso: ---> Package keyutils-libs-devel.x86_64 0:1.5.8-3.el7 will be installed
+    virtualbox-iso: ---> Package libcom_err-devel.x86_64 0:1.42.9-7.el7 will be installed
+    virtualbox-iso: ---> Package libselinux-devel.x86_64 0:2.2.2-6.el7 will be installed
+    virtualbox-iso: --> Processing Dependency: libsepol-devel >= 2.1.9-1 for package: libselinux-devel-2.2.2-6.el7.x86_64
+    virtualbox-iso: --> Processing Dependency: pkgconfig(libsepol) for package: libselinux-devel-2.2.2-6.el7.x86_64
+    virtualbox-iso: --> Processing Dependency: pkgconfig(libpcre) for package: libselinux-devel-2.2.2-6.el7.x86_64
+    virtualbox-iso: ---> Package libverto-devel.x86_64 0:0.2.5-4.el7 will be installed
+    virtualbox-iso: --> Running transaction check
+    virtualbox-iso: ---> Package libsepol-devel.x86_64 0:2.1.9-3.el7 will be installed
+    virtualbox-iso: ---> Package pcre-devel.x86_64 0:8.32-15.el7 will be installed
+    virtualbox-iso: --> Finished Dependency Resolution
+    virtualbox-iso:
+    virtualbox-iso: Dependencies Resolved
+    virtualbox-iso:
+    virtualbox-iso: ================================================================================
+    virtualbox-iso: Package                  Arch        Version                   Repository
+    virtualbox-iso: Size
+    virtualbox-iso: ================================================================================
+    virtualbox-iso: Installing:
+    virtualbox-iso: openssl-devel            x86_64      1:1.0.1e-42.el7.9         base      1.2 M
+    virtualbox-iso: Installing for dependencies:
+    virtualbox-iso: keyutils-libs-devel      x86_64      1.5.8-3.el7               base       37 k
+    virtualbox-iso: krb5-devel               x86_64      1.13.2-10.el7             base      649 k
+    virtualbox-iso: libcom_err-devel         x86_64      1.42.9-7.el7              base       30 k
+    virtualbox-iso: libselinux-devel         x86_64      2.2.2-6.el7               base      174 k
+    virtualbox-iso: libsepol-devel           x86_64      2.1.9-3.el7               base       71 k
+    virtualbox-iso: libverto-devel           x86_64      0.2.5-4.el7               base       12 k
+    virtualbox-iso: pcre-devel               x86_64      8.32-15.el7               base      478 k
+    virtualbox-iso:
+    virtualbox-iso: Transaction Summary
+    virtualbox-iso: ================================================================================
+    virtualbox-iso: Install  1 Package (+7 Dependent packages)
+    virtualbox-iso:
+    virtualbox-iso: Total download size: 2.6 M
+    virtualbox-iso: Installed size: 5.6 M
+    virtualbox-iso: Downloading packages:
+    virtualbox-iso: --------------------------------------------------------------------------------
+    virtualbox-iso: Total                                              1.5 MB/s | 2.6 MB  00:01
+    virtualbox-iso: Running transaction check
+    virtualbox-iso: Running transaction test
+    virtualbox-iso: Transaction test succeeded
+    virtualbox-iso: Running transaction
+    virtualbox-iso: Installing : keyutils-libs-devel-1.5.8-3.el7.x86_64                       1/8
+    virtualbox-iso: Installing : libcom_err-devel-1.42.9-7.el7.x86_64                         2/8
+    virtualbox-iso: Installing : pcre-devel-8.32-15.el7.x86_64                                3/8
+    virtualbox-iso: Installing : libsepol-devel-2.1.9-3.el7.x86_64                            4/8
+    virtualbox-iso: Installing : libselinux-devel-2.2.2-6.el7.x86_64                          5/8
+    virtualbox-iso: Installing : libverto-devel-0.2.5-4.el7.x86_64                            6/8
+    virtualbox-iso: Installing : krb5-devel-1.13.2-10.el7.x86_64                              7/8
+    virtualbox-iso: Installing : 1:openssl-devel-1.0.1e-42.el7.9.x86_64                       8/8
+    virtualbox-iso: Verifying  : libselinux-devel-2.2.2-6.el7.x86_64                          1/8
+    virtualbox-iso: Verifying  : libverto-devel-0.2.5-4.el7.x86_64                            2/8
+    virtualbox-iso: Verifying  : libsepol-devel-2.1.9-3.el7.x86_64                            3/8
+    virtualbox-iso: Verifying  : pcre-devel-8.32-15.el7.x86_64                                4/8
+    virtualbox-iso: Verifying  : krb5-devel-1.13.2-10.el7.x86_64                              5/8
+    virtualbox-iso: Verifying  : 1:openssl-devel-1.0.1e-42.el7.9.x86_64                       6/8
+    virtualbox-iso: Verifying  : libcom_err-devel-1.42.9-7.el7.x86_64                         7/8
+    virtualbox-iso: Verifying  : keyutils-libs-devel-1.5.8-3.el7.x86_64                       8/8
+    virtualbox-iso:
+    virtualbox-iso: Installed:
+    virtualbox-iso: openssl-devel.x86_64 1:1.0.1e-42.el7.9
+    virtualbox-iso:
+    virtualbox-iso: Dependency Installed:
+    virtualbox-iso: keyutils-libs-devel.x86_64 0:1.5.8-3.el7
+    virtualbox-iso: krb5-devel.x86_64 0:1.13.2-10.el7
+    virtualbox-iso: libcom_err-devel.x86_64 0:1.42.9-7.el7
+    virtualbox-iso: libselinux-devel.x86_64 0:2.2.2-6.el7
+    virtualbox-iso: libsepol-devel.x86_64 0:2.1.9-3.el7
+    virtualbox-iso: libverto-devel.x86_64 0:0.2.5-4.el7
+    virtualbox-iso: pcre-devel.x86_64 0:8.32-15.el7
+    virtualbox-iso:
+    virtualbox-iso: Complete!
+    virtualbox-iso: + yum -y install sqlite-devel
+    virtualbox-iso: Loaded plugins: fastestmirror
+    virtualbox-iso: Loading mirror speeds from cached hostfile
+    virtualbox-iso: Resolving Dependencies
+    virtualbox-iso: --> Running transaction check
+    virtualbox-iso: ---> Package sqlite-devel.x86_64 0:3.7.17-8.el7 will be installed
+    virtualbox-iso: --> Finished Dependency Resolution
+    virtualbox-iso:
+    virtualbox-iso: Dependencies Resolved
+    virtualbox-iso:
+    virtualbox-iso: ================================================================================
+    virtualbox-iso: Package              Arch           Version                 Repository    Size
+    virtualbox-iso: ================================================================================
+    virtualbox-iso: Installing:
+    virtualbox-iso: sqlite-devel         x86_64         3.7.17-8.el7            base         104 k
+    virtualbox-iso:
+    virtualbox-iso: Transaction Summary
+    virtualbox-iso: ================================================================================
+    virtualbox-iso: Install  1 Package
+    virtualbox-iso:
+    virtualbox-iso: Total download size: 104 k
+    virtualbox-iso: Installed size: 366 k
+    virtualbox-iso: Downloading packages:
+    virtualbox-iso: Running transaction check
+    virtualbox-iso: Running transaction test
+    virtualbox-iso: Transaction test succeeded
+    virtualbox-iso: Running transaction
+    virtualbox-iso: Installing : sqlite-devel-3.7.17-8.el7.x86_64                             1/1
+    virtualbox-iso: Verifying  : sqlite-devel-3.7.17-8.el7.x86_64                             1/1
+    virtualbox-iso:
+    virtualbox-iso: Installed:
+    virtualbox-iso: sqlite-devel.x86_64 0:3.7.17-8.el7
+    virtualbox-iso:
+    virtualbox-iso: Complete!
+==> virtualbox-iso: Provisioning with shell script: scripts/vbtools.sh
+    virtualbox-iso: + HOME_DIR=/home/vagrant
+    virtualbox-iso: ++ cat /home/vagrant/.vbox_version
+    virtualbox-iso: + VER=5.0.20
+    virtualbox-iso: Virtualbox Tools Version: 5.0.20
+    virtualbox-iso: + echo 'Virtualbox Tools Version: 5.0.20'
+    virtualbox-iso: + mkdir -p /tmp/vbox
+    virtualbox-iso: + mount -o loop /home/vagrant/VBoxGuestAdditions_5.0.20.iso /tmp/vbox
+    virtualbox-iso: mount: /dev/loop0 is write-protected, mounting read-only
+    virtualbox-iso: + sh /tmp/vbox/VBoxLinuxAdditions.run
+    virtualbox-iso: Verifying archive integrity... All good.
+    virtualbox-iso: Uncompressing VirtualBox 5.0.20 Guest Additions for Linux............
+    virtualbox-iso: VirtualBox Guest Additions installer
+    virtualbox-iso: Copying additional installer modules ...
+    virtualbox-iso: Installing additional modules ...
+    virtualbox-iso: Removing existing VirtualBox non-DKMS kernel modules[  OK  ]
+    virtualbox-iso: Building the VirtualBox Guest Additions kernel modules
+    virtualbox-iso: Building the main Guest Additions module[  OK  ]
+    virtualbox-iso: Building the shared folder support module[  OK  ]
+    virtualbox-iso: Building the graphics driver module[  OK  ]
+    virtualbox-iso: Doing non-kernel setup of the Guest Additions[  OK  ]
+    virtualbox-iso: Starting the VirtualBox Guest Additions Installing the Window System drivers
+    virtualbox-iso: Could not find the X.Org or XFree86 Window System, skipping.
+    virtualbox-iso: [  OK  ]
+    virtualbox-iso: + umount /tmp/vbox
+    virtualbox-iso: + rm -rf /tmp/vbox
+    virtualbox-iso: + rm -f /home/vagrant/VBoxGuestAdditions_5.0.20.iso
+==> virtualbox-iso: Provisioning with shell script: scripts/cleanup.sh
+    virtualbox-iso: ++ rpm -qf --queryformat '%{NAME}' /etc/redhat-release
+    virtualbox-iso: ++ cut -f 1 -d -
+    virtualbox-iso: + distro=centos
+    virtualbox-iso: + yum -y clean all
+    virtualbox-iso: Loaded plugins: fastestmirror
+    virtualbox-iso: Cleaning repos: base
+    virtualbox-iso: Cleaning up everything
+    virtualbox-iso: Cleaning up list of fastest mirrors
+    virtualbox-iso: + rm -f /etc/udev/rules.d/70-persistent-net.rules
+    virtualbox-iso: + mkdir -p /etc/udev/rules.d/70-persistent-net.rules
+    virtualbox-iso: + rm -f /lib/udev/rules.d/75-persistent-net-generator.rules
+    virtualbox-iso: + rm -rf /dev/.udev/
+    virtualbox-iso: ++ ls -1 /etc/sysconfig/network-scripts/ifcfg-enp0s3 /etc/sysconfig/network-scripts/ifcfg-lo
+    virtualbox-iso: + for ndev in '`ls -1 /etc/sysconfig/network-scripts/ifcfg-*`'
+    virtualbox-iso: ++ basename /etc/sysconfig/network-scripts/ifcfg-enp0s3
+    virtualbox-iso: + '[' ifcfg-enp0s3 '!=' ifcfg-lo ']'
+    virtualbox-iso: + sed -i '/^HWADDR/d' /etc/sysconfig/network-scripts/ifcfg-enp0s3
+    virtualbox-iso: + sed -i '/^UUID/d' /etc/sysconfig/network-scripts/ifcfg-enp0s3
+    virtualbox-iso: + for ndev in '`ls -1 /etc/sysconfig/network-scripts/ifcfg-*`'
+    virtualbox-iso: ++ basename /etc/sysconfig/network-scripts/ifcfg-lo
+    virtualbox-iso: + '[' ifcfg-lo '!=' ifcfg-lo ']'
+    virtualbox-iso: + rm -f 'VBoxGuestAdditions_*.iso' 'VBoxGuestAdditions_*.iso.?'
+==> virtualbox-iso: Provisioning with shell script: scripts/minimize.sh
+    virtualbox-iso: + set +e
+    virtualbox-iso: ++ /sbin/blkid -o value -l -s UUID -t TYPE=swap
+    virtualbox-iso: + swapuuid=e4816f6d-c902-4a4e-875c-87a0580684ee
+    virtualbox-iso: + case "$?" in
+    virtualbox-iso: + set -e
+    virtualbox-iso: + '[' xe4816f6d-c902-4a4e-875c-87a0580684ee '!=' x ']'
+    virtualbox-iso: ++ readlink -f /dev/disk/by-uuid/e4816f6d-c902-4a4e-875c-87a0580684ee
+    virtualbox-iso: + swappart=/dev/dm-1
+    virtualbox-iso: + /sbin/swapoff /dev/dm-1
+    virtualbox-iso: + dd if=/dev/zero of=/dev/dm-1 bs=1M
+    virtualbox-iso: dd: error writing ‘/dev/dm-1’: No space left on device
+    virtualbox-iso: 2049+0 records in
+    virtualbox-iso: 2048+0 records out
+    virtualbox-iso: 2147483648 bytes (2.1 GB) copied, 10.4147 s, 206 MB/s
+    virtualbox-iso: + echo 'dd exit code 1 is suppressed'
+    virtualbox-iso: + /sbin/mkswap -U e4816f6d-c902-4a4e-875c-87a0580684ee /dev/dm-1
+    virtualbox-iso: dd exit code 1 is suppressed
+    virtualbox-iso: Setting up swapspace version 1, size = 2097148 KiB
+    virtualbox-iso: no label, UUID=e4816f6d-c902-4a4e-875c-87a0580684ee
+    virtualbox-iso: + dd if=/dev/zero of=/EMPTY bs=1M
+    virtualbox-iso: dd: error writing ‘/EMPTY’: No space left on device
+    virtualbox-iso: dd exit code 1 is suppressed
+    virtualbox-iso: 37089+0 records in
+    virtualbox-iso: 37088+0 records out
+    virtualbox-iso: 38889734144 bytes (39 GB) copied, 204.54 s, 190 MB/s
+    virtualbox-iso: + echo 'dd exit code 1 is suppressed'
+    virtualbox-iso: + rm -f /EMPTY
+    virtualbox-iso: + sync
+==> virtualbox-iso: Gracefully halting virtual machine...
+==> virtualbox-iso: Preparing to export machine...
+    virtualbox-iso: Deleting forwarded port mapping for the communicator (SSH, WinRM, etc) (host port 2555)
+==> virtualbox-iso: Exporting virtual machine...
+    virtualbox-iso: Executing: export centos-7.2-x86_64 --output packer-centos-7.2-x86_64-virtualbox/centos-7.2-x86_64.ovf
+==> virtualbox-iso: Unregistering and deleting virtual machine...
+==> virtualbox-iso: Running post-processor: vagrant
+==> virtualbox-iso (vagrant): Creating Vagrant box for 'virtualbox' provider
+    virtualbox-iso (vagrant): Copying from artifact: packer-centos-7.2-x86_64-virtualbox/centos-7.2-x86_64-disk1.vmdk
+    virtualbox-iso (vagrant): Copying from artifact: packer-centos-7.2-x86_64-virtualbox/centos-7.2-x86_64.ovf
+    virtualbox-iso (vagrant): Renaming the OVF to box.ovf...
+    virtualbox-iso (vagrant): Compressing: Vagrantfile
+    virtualbox-iso (vagrant): Compressing: box.ovf
+    virtualbox-iso (vagrant): Compressing: centos-7.2-x86_64-disk1.vmdk
+    virtualbox-iso (vagrant): Compressing: metadata.json
+Build 'virtualbox-iso' finished.
+
+==> Builds finished. The artifacts of successful builds are:
+--> virtualbox-iso: 'virtualbox' provider box: builds/centos-7.2.1511.virtualbox.box

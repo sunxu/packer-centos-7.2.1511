@@ -1,0 +1,5 @@
+[base]
+name=CentOS-7-x86_64-Everything-1511.iso
+failovermethod=priority
+baseurl=http://127.0.0.1:32957/
+gpgcheck=0

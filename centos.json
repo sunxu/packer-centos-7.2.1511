@@ -1,0 +1,88 @@
+{
+  "builders": [
+    {
+      "boot_command": [
+        "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/{{user `ks_path`}}<enter><wait>"
+      ],
+      "boot_wait": "10s",
+      "disk_size": "{{user `disk_size`}}",
+      "guest_additions_path": "VBoxGuestAdditions_{{.Version}}.iso",
+      "guest_os_type": "RedHat_64",
+      "hard_drive_interface": "sata",
+      "headless": "{{ user `headless` }}",
+      "http_directory": "http",
+      "iso_checksum": "f90e4d28fa377669b2db16cbcb451fcb9a89d2460e3645993e30e137ac37d284",
+      "iso_checksum_type": "sha256",
+      "iso_urls": [
+        "./CentOS-7-x86_64-Minimal-1511.iso",
+        "http://mirrors.aliyun.com/centos/7.2.1511/isos/x86_64/CentOS-7-x86_64-Minimal-1511.iso",
+        "http://vault.centos.org/7.2.1511/isos/x86_64/CentOS-7-x86_64-Minimal-1511.iso"
+      ],
+      "output_directory": "packer-{{user `template`}}-virtualbox",
+      "shutdown_command": "echo 'vagrant' | sudo -S /sbin/halt -h -p",
+      "ssh_password": "vagrant",
+      "ssh_port": 22,
+      "ssh_username": "vagrant",
+      "ssh_wait_timeout": "10000s",
+      "type": "virtualbox-iso",
+      "vboxmanage": [
+        [
+          "modifyvm",
+          "{{.Name}}",
+          "--memory",
+          "{{ user `memory` }}"
+        ],
+        [
+          "modifyvm",
+          "{{.Name}}",
+          "--cpus",
+          "{{ user `cpus` }}"
+        ]
+      ],
+      "virtualbox_version_file": ".vbox_version",
+      "vm_name": "{{ user `template` }}"
+    }
+  ],
+  "post-processors": [
+    {
+      "output": "builds/{{user `box_basename`}}.{{.Provider}}.box",
+      "type": "vagrant"
+    }
+  ],
+  "provisioners": [
+    {
+      "source": "repo",
+      "destination": "/tmp",
+      "type": "file"
+    },
+    {
+      "environment_vars": [
+        "HOME_DIR=/home/vagrant",
+      ],
+      "execute_command": "echo 'vagrant' | {{.Vars}} sudo -S -E sh -eux '{{.Path}}'",
+      "scripts": [
+        "scripts/sshd.sh",
+        "scripts/networking.sh",
+        "scripts/vagrant.sh",
+        "scripts/repository.sh",
+        "scripts/package.sh",
+        "scripts/vbtools.sh",
+        "scripts/cleanup.sh",
+        "scripts/minimize.sh"
+      ],
+      "type": "shell"
+    }
+  ],
+  "variables": {
+    "box_basename": "centos-7.2.1511",
+    "build_timestamp": "{{isotime \"20060101010101\"}}",
+    "disk_size": "40960",
+    "headless": "true",
+    "ks_path": "ks.cfg",
+    "name": "centos-7.2.1511",
+    "cpus": "2",
+    "memory": "2048",
+    "template": "centos-7.2-x86_64",
+    "version": "2.1.TIMESTAMP"
+  }
+}

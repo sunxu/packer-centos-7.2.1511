@@ -1,0 +1,8 @@
+.DS_Store
+
+.VBoxGuestAdditions.iso
+CentOS-7-x86_64-Minimal-1511.iso
+
+builds/centos-7.2.1511.virtualbox.box
+
+packer_cache
